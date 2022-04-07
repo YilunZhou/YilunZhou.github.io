@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/x-icon" href="/exsum/favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <title>ExSum</title>
+
+    <style>
+          /* Set your aspect ratio */
+      .video-container {
+      position: relative;
+      overflow: hidden;
+      height: 0;
+      padding-bottom: 56.25%; /* creates a 16:9 aspect ratio */
+      text-align: center;
+      width: 800px;
+      max-width: 100%;
+      margin: 0 auto;
+      }
+
+      code { 
+        background-color: #eee; 
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+
+      .video-container iframe{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      }
+
+      /* And set the max-width of the parent element */
+      .video-wrap {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">ExSum: Explanation Summary for Quantifying Generalized Model Insights</h2>
+    <h5 style="text-align: center; margin-bottom: 5px; margin-top: 20px;">
+      <a href="https://yilun.scripts.mit.edu/">Yilun Zhou</a><sup>1</sup>,
+      <a href="https://homes.cs.washington.edu/~marcotcr/">Marco Tulio Ribeiro</a><sup>2</sup>,
+      <a href="https://interactive.mit.edu/">Julie Shah</a><sup>1</sup>
+    </h5>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      <sup>1 </sup>MIT CSAIL, <sup>2 </sup>Microsoft Research
+    </h6>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      [<a href="">Paper</a>] &nbsp;&nbsp;
+      [<a href="https://github.com/YilunZhou/ExSum">GitHub Repo</a>] &nbsp;&nbsp;
+      [<a href="/exsum/documentation.html">Package Documentation</a>]
+    </h6>
+    <h6 style="text-align: center; margin-bottom: 15px; margin-top: 10px;">NAACL 2022</h6>
+
+    <div class="container">
+
+      <!-- <center>
+        <div class="video-wrap">
+          <div class='col col-12 video-container'>
+            <iframe src="https://www.youtube.com/embed/kAodFw6jvvo"
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+            encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </center> -->
+
+      <div class='col col-12'>
+        <p style="text-align: justify; text-justify: inter-word;">
+          <b>TLDR:</b> Local explanations (e.g. saliency maps and feature attributions) can reveal properties of models, but they are fundamentally a means to an end — the end of understanding models in a reliable and generalizable manner. How good are they in being the means, i.e. how can we ensure high-quality model insights from these local explanations? ExSum provides a mathematical formalization for the construction and evaluation of the model insights. 
+        </p>
+        <p style="text-align: justify; text-justify: inter-word;">
+          <b>Code:</b> We provide an easy-to-use package for you to play with the ExSum experiments described in the paper and use it for your models and datasets. Just <code>pip install exsum</code> and follow the <a href="ExSum/documentation.html">documentation</a> to get started. 
+        </p>
+        <p style="text-align: justify; text-justify: inter-word;">
+          <b>Abstract:</b> TODO
+        </p>
+      </div>
+
+      <div class='col col-12'>
+        <div class="card bg-light">
+          <div class="card-body" style='padding: 10px; font-size: 12pt; font-family: monospace;'>
+            @inproceedings{zhou2022exsum,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;title = {ExSum: Explanation Summary for Quantifying Generalized Model Insights},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;author = {Zhou, Yilun and Ribeiro, Marco Tulio and Shah, Julie},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;booktitle = {Annual Conference of the North American Chapter of the Association for Computational Linguistics},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;year = {2022},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;month = {July},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;publisher = {Association for Computational Linguistics}<br>
+            }
+          </div>
+        </div>
+      </div>
+
+      <h3 style="text-align: center; margin-bottom: 15px; margin-top: 30px;">Team</h3>
+      <div class="col col-12 mb-4">
+        <div class='row'>
+          <div class="col col-4" style="text-align: center">
+            <img src="../imgs/profile_pics/yilun.jpg" width="60%" style="margin-bottom: 5px"><br>
+            <a href="https://yilun.scripts.mit.edu/">Yilun Zhou</a><br>
+            PhD Student<br>MIT CSAIL<br>
+            <a href = "mailto:yilun@csail.mit.edu">yilun@csail.mit.edu</a>
+          </div>
+          <div class="col col-4" style="text-align: center">
+            <img src="../imgs/profile_pics/marco.png" width="60%" style="margin-bottom: 5px"><br>
+            <a href="https://homes.cs.washington.edu/~marcotcr/">Marco Tulio Ribeiro</a><br>
+            Senior Researcher<br>Microsoft Research<br>
+            <a href = "mailto:marcotcr@microsoft.com">marcotcr@microsoft.com</a>
+          </div>
+          <div class="col col-4" style="text-align: center">
+            <img src="../imgs/profile_pics/julie.jpg" width="60%" style="margin-bottom: 5px"><br>
+            <a href="https://interactive.mit.edu/">Julie Shah</a><br>
+            Professor<br>MIT CSAIL<br>
+            <a href = "mailto:julie_a_shah@csail.mit.edu">julie_a_shah@csail.mit.edu</a>
+          </div>
+        </div>
+      </div>
+      <div class="col col-12 mb-5">
+        <div class='row'>
+          This research is supported by the National Science Foundation (NSF) under the grant IIS-1830282.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

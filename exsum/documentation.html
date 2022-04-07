@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/x-icon" href="/ExSum/favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <title>ExSum Documentation</title>
+
+  </head>
+  <body>
+    <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">ExSum Package Documentation</h2>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      [<a href="">Paper</a>] &nbsp;&nbsp;
+      [<a href="https://github.com/YilunZhou/ExSum">GitHub Repo</a>] &nbsp;&nbsp;
+      [<a href="index.html">Main Project Page</a>]
+    </h6>
+
+    <div class="container" style="margin-bottom: 5ex;">
+
+      <div class='col col-12'>
+
+        <div id="toc_container">
+          <p class="toc_title">Contents</p>
+          <ol class="toc_list">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#quickstart">Quickstart</a></li>
+            <li><a href="#gui_manual">GUI Manual</a></li>
+            <li><a href="#dev_manual">Development Manual</a></li>
+          </ol>
+        </div>
+
+        <h4 id='overview'>Overview [<a href="#top">Back to Top</a>]</h4>
+        This package is used to inspect and modify an ExSum rule union defined for feature attribution explanations for binary text classification models. It contains class definitions for ExSum rules and rule unions, and a Flask-based server for interactive visualization of the rules and rule unions.
+
+        <h4 id='quickstart'>Quickstart [<a href="#top">Back to Top</a>]</h4>
+        <h5>Installation</h5>
+        This package is available on PyPI. To install, simply run <code>pip install exsum</code> on the command line. Alternatively, clone the GitHub repo linked above and run <code>pip install .</code> inside the cloned directory. 
+
+        <h5>Launching the GUI Interface</h5>
+        After installation, a new <code>exsum</code> command will be available on the command line. It should be called as 
+        <pre><code>exsum model-fn [--model-var-name model --log-dir logs --save-dir saves]</code></pre>
+        The first argument <code>model-fn</code> specifies an <code>exsum.Model</code> object. It could be one of the following two: 
+        <ol>
+          <li>a Python script (ending with <code>.py</code>) that defines this object in the global namespace with the default variable name being <code>model</code>, or</li>
+          <li>a Python pickle file (ending with <code>.pkl</code> of that object. Note that since <code>exsum.Model</code> objects contain functions as instance variables (as described below), it need to be constructed by the <code>dill</code> library. </li>
+        </ol>
+        How to construct this object is detailed in the <a href="#dev_manual">Development Manual</a> section, but briefly, it contains the following data: 
+        <ul>
+          <li>the rule union with its constituent rules,</li>
+          <li>the dataset on which the rule union and individual rules are evaluated, and</li>
+          <li>the local feature attribution explanation for each instance in the dataset.</li>
+        </ul>
+        The three subsequent keyword arguments are optional. 
+        <ul>
+          <li><code>--model-var-name</code> (default: <code>model</code>) specifies the name of the <code>exsum.Model</code> variable to load in the <code>model-fn</code> Python script. It is not applicable if a pickled object file (i.e. <code>*.pkl</code>) is given for <code>model-fn</code>. </li>
+          <li><code>--log-dir</code> argument (default: <code>logs</code>) specifies the logging directory. All GUI operations in an <code>exsum</code> session are saved as a timestamped log file to this directory.</li>
+          <li><code>--save-dir</code> argument (default: <code>saves</code>) specifies the location where the modified rules are saved by clicking a <code>Save</code> button on the GUI. Each time two files are saved, both named with the current timestamp: 
+            <ol>
+              <li>a plain-text file of the current parameter values of all rules, and</li>
+              <li>a pickled <code>exsum.Model</code> object with the current parameters, which can be passed in as the <code>model-fn</code> parameter and loaded in a new <code>exsum</code> session.</li>
+            </ol>
+          </li>
+        </ul>
+        This command starts a local web server and serves the GUI continuously (i.e. will not finish unless shutdown by Ctrl-C). While it is running, open up a browser to <a href="http://localhost:5000">http://localhost:5000</a> to interact with the GUI. <br>
+
+        Note that this server instance is fully local. It makes no connections to other servers on the Internet (even the Bootstrap CSS files and). Thus, the operations in the browser is only tracked by local logging to the <code>log-dir</code>, and not shared in any way. 
+
+        <h5>Demos</h5>
+        To visualize the two rule unions presented in the paper, follow these steps:
+        <ol start="0">
+          <li>Install <code>exsum</code> with <code>pip</code> (see above for instructions). </li>
+          <li>In any directory, clone the <code>exsum-demos</code> repository, and <code>cd</code> into it. 
+            <pre><code>git clone https://github.com/YilunZhou/exsum-demos
+cd exsum-demos</code></pre></li>
+          <li>In this <code>exsum-demo</code> directory, run one of the two following commands to visualize the SST or QQP rule union. 
+            <pre><code>exsum sst_rule_union.py  # OR
+exsum qqp_rule_union.py</code></pre></li>
+          <li>Open up a browser to <a href="http://localhost:5000">http://localhost:5000</a> to interact with the GUI. Play with it, tweak things, and see what happens. </li>
+        </ol>
+
+        <h5>Next Steps</h5>
+        To better understand the GUI, continue reading the <a href="#gui_manual">GUI Manual</a> section for details about each component. To study the implementation of these rule unions or write your own rules and/or rule unions, read the <a href="#dev_manual">Development Manual</a> section afterward. 
+
+        <h4 id='gui_manual'>GUI Manual [<a href="#top">Back to Top</a>]</h4>
+        The figure below shows the GUI interface with the SST rule union loaded and Rule XX selected. Various components are annotated. 
+        <h5>Component A</h5>
+
+        <h5>Component B</h5>
+
+        <h5>Component C</h5>
+
+        <h5>Component D</h5>
+
+        <h5>Component E</h5>
+
+        <h5>Component F</h5>
+
+        <h5>Component G</h5>
+
+
+        <h4 id='dev_manual'>Development Manual [<a href="#top">Back to Top</a>]</h4>
+        <h5>Class Structure</h5>
+        <i>It is strongly recommended to read the paper first, in order to understand the high-level ideas and goals of the package. </i><br>
+
+        The diagram below describes the has-a relationship among classes as a tree, where parent nodes contain child nodes. All classes are under the package namespace <code>exsum</code> (e.g. the fully quantified class name for <code>Model</code> is <code>exsum.Model</code>). The three green classes represent list membership. For example, a <code>Rule</code> has a list of <code>Parameter</code>s. For the <code>BehaviorRange</code> shown in yellow, it is technically not contained in <code>Rule</code>, but is instead produced by its behavior function. We include it here for completeness. The top-level <code>Model</code> object is passed to the command <code>exsum</code> to start the GUI visualization. 
+        <div class="d-flex justify-content-center">
+          <img src="exsum_diagram.svg" width="60%">
+        </div>
+
+        <h5>Class Documentation</h5>
+
+        <h5>&#8227; class <code>Model</code></h5>
+        The <code>Model</code> class is the top-level object that contains everything necessary about the rule union and the dataset on which the rule union is evaluated. It should be initialized as:
+        <pre><code>model = Model(rule_union, data)</code></pre>
+        where <code>rule_union</code> and <code>data</code> are objects of the <code>RuleUnion</code> and <code>Data</code> class respectively. The <code>Model</code> class is also responsible for calculating metric values and producing instance visualizations (which are queried by the GUI server), but users should not be concerned about these functionalities.
+
+        <h5>&#8227; class <code>RuleUnion</code></h5>
+        A <code>RuleUnion</code> is specified by a list of rules and a composition structure of these rules. It should be initialized as: 
+        <pre><code>rule_union = RuleUnion(rules, composition_structure)</code></pre>
+        <ul>
+          <li><code>rules</code> is a list of <code>Rule</code> objects. As described below, each rule has an index, which we assume to be unique. </li>
+          <li><code>composition_structure</code> specifies how the rules are composed. If a rule union contains only one rule, it is an integer with value being the rule index. Otherwise, it is a tuple of three items. The first and the third one recursively represents the two constituent rule (specified by an integer) or rule union (specified by a tuple), and the second one is either <code>'>'</code> for precedence mode composition, or <code>'&'</code> for intersection mode composition. <br>
+          For example, the composition structure of <code>(3, '>', (1, '&', 2))</code> means that rule 1 and 2 are first combined in intersection mode, and then combined with rule 3 with a lower precedence. <br>
+          Not every rule needs to be used in the <code>composition_structure</code>, but no rule can be used more than once. </li>
+        </ul>
+        The <code>RuleUnion</code> class is also responsible for supplying the metric values requested by the <code>Model</code> and generating the counterfactual <code>RuleUnion</code> without a specified rule, but users should not be concerned about these functionalities. 
+
+        <h5>&#8227; class <code>Rule</code></h5>
+        A <code>Rule</code> contains the following information: <code>index</code> (an integer), <code>name</code> (a string), applicability function <code>a_func</code> and its parameters <code>a_params</code>, and behavior function <code>b_func</code> and its parameters <code>b_params</code>. It should be initialized as:  
+        <pre><code>rule = Rule([index, name, a_func, a_params, b_func, b_params])</code></pre>
+        Note that the constructor takes in the single variable of a list that contains every piece of information rather than each piece separately. <code>a_func</code> and <code>b_func</code> are native Python functions. They have the same input format: an <code>FEU</code> as the first input, followed by a list of current values for the parameters, as below for an example of an applicability function with three parameters:
+        <pre><code>def a_func(feu, param_vals):
+    param1_val, param2_val, param3_val = param_vals
+    ...</code></pre>
+        <code>a_func</code> returns <code>True</code> or <code>False</code> to represent the applicability status of the input FEU, and <code>b_func</code> returns a <code>BehaviorRange</code> object to represent the prescribed behavior value. <br>
+
+        Sometimes <code>a_func</code> and <code>b_func</code> share many common implementation details. In this case, it could be more convenient to combine them into one <code>ab_func</code>. In this case, the rule can be initialized as
+        <pre><code>rule = Rule([index, name, ab_func, a_params, b_params])</code></pre>
+        Note that again a list is provided, but this time with five items instead of six. The <code>Rule</code> constructor uses the length of the list to distinguish between these two cases. <code>ab_func</code> should take in the <code>FEU</code>, a list of current values for <code>a_params</code> and a list of current values for <code>b_params</code>, and return a tuple of two values, <code>True</code> or <code>False</code> and a <code>BehaviorRange</code> object, as below:
+        <pre><code>def ab_func(feu, a_param_vals, b_param_vals)</code></pre>
+
+        When <code>b_func</code> or <code>ab_func</code> is called for a non-applicable input, arbitrary object can be returned (but the function should <i>not</i> raise an exception) and the result is guaranteed to not be used. Furthermore, the name of the rule has no effect on everything else, and is only for human readability. 
+
+        <h5>&#8227; class <code>Parameter</code></h5>
+        We assume all parameters take floating point values. A <code>Parameter</code> object encapsulates everything about a parameter, including its name, value range, default value and current value. It is initialized as
+        <pre><code>param = Parameter(name, param_range, default_value)</code></pre>
+        where <code>name</code> is a string, <code>param_range</code> is a <code>ParameterRange</code> object, and <code>default_value</code> is a floating point value. The current value is set to the <code>default_value</code> on initialization and reverted back to it whenever the user presses a <code>Reset</code> button on the GUI. 
+
+        <h5>&#8227; class <code>ParameterRange</code></h5>
+        We assume that all parameter value ranges are continuous intervals, so a <code>ParameterRange</code> is specified by its lower and upper bound: 
+        <pre><code>param_range = ParameterRange(lo, hi)</code></pre>
+        where <code>lo</code> and <code>hi</code> are floating point values for the two bounds. Note that the interval is assumed to be a closed interval. To represent an open interval, offset the bound value by a small epsilon value (e.g. 1e-5). 
+
+        <h5>&#8227; class <code>BehaviorRange</code></h5>
+        Similar to <code>ParameterRange</code>, <code>BehaviorRange</code> objects are also defined as closed intervals. However, a key difference is that a <code>BehaviorRange</code> allows multiple disjoint intervals. For example to represent that an attribution value should have extreme values on either side, the behavior range could be [-1.0, -0.9] &cup; [0.9, 1.0]. Thus, it is initialized as
+        <pre><code>behavior_range = BehaviorRange(intervals)</code></pre>
+        where <code>intervals</code> is a list of <code>(lo, hi)</code> tuples. In the case where a single closed interval is needed, an alternative class method is also provided in a way similar to the syntax of <code>ParameterRange</code>: 
+        <pre><code>behavior_range = BehaviorRange.simple_interval(lo, hi)</code></pre>
+        To represent an open interval, offset the bound value by a small epsilon value (e.g. 1e-5). 
+
+        <h5>&#8227; class <code>Data</code></h5>
+        A <code>Data</code> object represents the set of instances along with their explanation values, on which the rules and rule union are evaluated. The main data are stored in a <code>SentenceGroupedFEU</code> object. In addition, to compute the sharpness metric, the probability measure for the marginal distribution of all explanation values need to be used. Operations on the probability measure is enabled by the <code>Measure</code> object. With these two objects, a <code>Data</code> object can be initialized as: 
+        <pre><code>data = Data(sentence_grouped_feu, measure, normalize)</code></pre>
+        where <code>normalize</code> is an optional boolean variable (default to <code>False</code>) that specifies whether the explanation values should be scaled so that all are within the range of [-1.0, 1.0]. <br>
+
+        If normalization is enabled, first the maximum magnitude of all explanation values (positive or negative) is found. Then all explanation values are divided by this magnitude, effectively shrinking (or expanding) them around 0, so that the maximum magnitude is 1.0. The <code>Measure</code> object is also scaled accordingly. Its default value is set to <code>False</code> to prevent any unintended effects, but we recommend normalization (or pre-normalization of explanation values before loading into this <code>Data</code> object) since the coloring used by the GUI text rendering assumes -1.0 and 1.0 as the extreme values. 
+
+        <h5>&#8227; class <code>SentenceGroupedFEU</code></h5>
+        Recall that for NLP feature attribution explanations, an FEU is word contexualized in the whole input. Storing an entire copy of this information for every word in a sentence is wasteful. So the <code>SentenceGroupedFEU</code> class is designed to represent a data instance with its explanation as a whole. A data instance contains the following information: 
+        <ul>
+          <li>Ground truth label, assumed to be binary, </li>
+          <li>Model's predicted probability of the positive class (floating point in [0, 1]), </li>
+          <li>A list of tokenized words in the sentence, </li>
+          <li>A list of features, one for each word represented as a tuple. The number of features for each word should be fixed. These features are used by the <code>a_func</code> and <code>b_func</code> rather than the classifier, and thus should be human-interpretable, and</li>
+          <li>A list of floating point attribution values, one or each word. </li>
+        </ul>
+        It should be initialized as:
+        <pre><code>sentence_grouped_feu = SentenceGroupedFEU(words, features, explanations, true_label, prediction)</code></pre>
+        where <code>words</code> is a list of strings, <code>features</code> is a list of tuples (of arbitrary elements), <code>explanations</code> is a list of floats, <code>true_label</code> is either 0 or 1, and <code>prediction</code> is a float between 0 and 1. The items in <code>words</code>, <code>features</code> and <code>explanations</code> should be aligned with each other, and thus the three lists should have the same length. 
+
+        A <code>SentenceGroupedFEU</code> in spirit contains a list of <code>FEU</code>s. However, to save space, this list is never explicitly kept, but elements of it are generated on the fly. Users should not be concerned with the details. 
+
+        <h5>&#8227; class <code>FEU</code></h5>
+        As seen above, the construction of a <code>SentenceGroupedFEU</code> does not require the actual instantiation of <code>FEU</code>s. However, as <code>a_func</code> and <code>b_func</code> take inputs of this class, it is important to familiar with its instance variables. An <code>FEU</code> object <code>feu</code> has the following instance variables: 
+        <ul>
+          <li><code>feu.context</code> points to the <code>SentenceGroupedFEU</code> object from which this <code>feu</code> is created; </li>
+          <li><code>feu.idx</code> is an integer for the (0-based) position of the FEU in the sentence; </li>
+          <li><code>feu.word</code> is a string for the word of the FEU; </li>
+          <li><code>feu.explanation</code> is a float for the explanation of the FEU; </li>
+          <li><code>feu.true_label</code> is an integer of either 0 or 1 for the ground truth label;</li>
+          <li><code>feu.prediction</code> is a float in [0, 1] for the model's predicted probability for the positive class; and</li>
+          <li><code>feu.L</code> is an integer for the length of the whole sentence. </li>
+        </ul>
+        Technically, all instance variables beyond the first two are syntatic sugars, as they can be retrieved from the parent <code>SentenceGroupedFEU</code>. However, they are included for convenience due to frequent use. 
+
+        <h5>&#8227; class <code>Measure</code></h5>
+        The <code>Measure</code> class represents an estimated probabilty measure on the marginal distribution of explanation values. It is computed by <a href="https://en.wikipedia.org/wiki/Kernel_density_estimation">kernel density estimation</a>, and the resulting cumulative distribution function is approximated by a dense linear interpolation for fast inference. This is a relatively expensive computation, especially for a large dataset. Thus, it should be pre-computed and provided explicitly when constructing the <code>Data</code> object. <br>
+
+        It should be initialized as:
+        <pre><code>measure = Measure(explanations, weights, zero_discrete)</code></pre>
+        <ul>
+          <li><code>explanations</code> is a flattened list of all explanation values for all data instances; </li>
+          <li><code>weights</code> is a flattened list of the (unnormalized) weights corresponding to the items in <code>explanations</code>. ExSum defines metric values by considering each <i>data instance</i> as equally weighted. Thus, an FEU in a longer input receives less weight than an FEU in a shorter input. The simplest way is to assign <code>1 / feu.L</code> as the weight for the explanation; and</li>
+          <li><code>zero_discrete</code> specifies whether the zero explanation value should be considered as a point mass in the probability distribution (i.e. a mixed discrete/continuous distribution). Some explainers (such as LIME with LASSO regularization) produce sparse explanations where a large fraction of explanation values are strictly 0. This case should be modeled with <code>zero_discrete = True</code>, while generally continuous distributions should be modeled with <code>zero_discrete = False</code>. </li>
+        </ul>
+      </div>
+
+    </div>
+  </body>
+</html>
