@@ -70,11 +70,12 @@
               <li>a plain-text file of the current parameter values of all rules, and</li>
               <li>a pickled <code>exsum.Model</code> object with the current parameters, which can be passed in as the <code>model-fn</code> parameter and loaded in a new <code>exsum</code> session.</li>
             </ol>
+            In addition, two files named <code>latest.(txt|pkl)</code> are also created with the same content for the user to look up easily. These files should be renamed or moved if the user wants to keep them, as they will be overwritten on the next save. 
           </li>
         </ul>
         This command starts a local web server and serves the GUI continuously (i.e. will not finish unless shutdown by Ctrl-C). While it is running, open up a browser to <a href="http://localhost:5000">http://localhost:5000</a> to interact with the GUI. <br>
 
-        Note that this server instance is fully local. It makes no connections to other servers on the Internet (even the Bootstrap CSS files and). Thus, the operations in the browser is only tracked by local logging to the <code>log-dir</code>, and not shared in any way. 
+        Note that this server instance is fully local. It makes no connections to other servers on the Internet (third-party CSS and JS files have been downloaded and included in the project package). Thus, the operations in the browser is only tracked by local logging to the <code>log-dir</code>, and not shared in any way. 
 
         <h5>Demos</h5>
         To visualize the two rule unions presented in the paper, follow these steps:
@@ -90,29 +91,94 @@ exsum qqp_rule_union.py</code></pre></li>
         </ol>
 
         <h5>Next Steps</h5>
-        To better understand the GUI, continue reading the <a href="#gui_manual">GUI Manual</a> section for details about each component. To study the implementation of these rule unions or write your own rules and/or rule unions, read the <a href="#dev_manual">Development Manual</a> section afterward. 
+        To better understand the GUI, continue reading the <a href="#gui_manual">GUI Manual</a> section for details. To study the implementation of these rule unions or write your own rules and/or rule unions, read the <a href="#dev_manual">Development Manual</a> section afterward. 
 
         <h4 id='gui_manual'>GUI Manual [<a href="#top">Back to Top</a>]</h4>
-        The figure below shows the GUI interface with the SST rule union loaded and Rule XX selected. Various components are annotated. 
-        <h5>Component A</h5>
+        The figure below shows the GUI interface with the SST rule union loaded and Rule 19 selected. Various panels are annotated. 
+        <div class="d-flex justify-content-center">
+          <img src="full.png" width="100%">
+        </div>
 
-        <h5>Component B</h5>
+        <h5>Panel A</h5>
+        This panel shows the composition structure of the rules. Note that not every rule needs to be used (Rule 2 and 7 are not used here), but each rule can be used at most once. 
 
-        <h5>Component C</h5>
+        <br>When a rule is selected, a <i>counterfactual</i> (CF) rule union without this rule is automatically computed for users to intuitively understand its marginal contribution. The structure of this CF rule union is shown in the second line. 
 
-        <h5>Component D</h5>
+        <h5>Panel B</h5>
+        This panel lists all rules as buttons. The user can inspect a rule in more detail by clicking on the rule. At the bottom are the <code>Reset</code> and <code>Save</code> button. The <code>Reset</code> button discards all changes to the parameter values made in the rule (Panel D), and the <code>Save</code> button saves a copy of the current rule union to the <code>--save-dir</code> (default: <code>saves</code>). 
 
-        <h5>Component E</h5>
+        <h5>Panel C</h5>
+        This panel shows the metric values computed for the full rule union, the CF rule rule union and the selected rule, in both numerical and graphical forms. Any change made to a rule automatically triggers the recomputation and update of these values. 
 
-        <h5>Component F</h5>
+        <h5>Panel D</h5>
+        This panel lists the parameters for the selected rule. Their values can be changed manually by entering the desired values or using the sliders. In addition, their values can also be tuned automatically with the AutoTune toolbox, which pops up after clicking the <u>AutoTune</u> link of the respective parameter. The toolbox pop-up for the "saliency lower range" parameter is shown below. 
+        <div class="d-flex justify-content-center">
+          <img src="autotune.png" width="40%" style="margin: 5px">
+        </div>
+        The objective of the search is specified by the triplet of (<code>target metric</code>, <code>target metric for</code>, <code>target value</code>). For example, in the pop-up above, the search tries to find a parameter value that achieves a validity value of at least 0.9 for the selected rule. Note that the coverage metric is not available for selection since we are tuning a parameter for the behavior function. All three metrics can be selected for parameters of the applicability function. <br>
 
-        <h5>Component G</h5>
+        There are two available search methods, linear search and binary search. Both methods try to find a satisfying value between the <code>start value</code> and the <code>stop value</code>. The <code>start value</code> and <code>stop value</code> are initialized to the current parameter value, but they should be changed appropriately. <br>
+
+        The linear search uses <code>precision</code> as a step size. Suppose that we have <code>start value = 0.0, stop value = -1.0, precision = 0.01</code>. Then it sequentially evaluates values of <code>0.0, -0.01, -0.02, ..., -0.99, -1.0</code>, and terminates when the objective is first met. Thus, it stops at the satisfying value closest to the <code>start value</code>. <br>
+
+        The binary search uses <code>precision</code> as the smallest halving length. It requires that the <code>stop value</code> is feasible (i.e. satisfies the objective), and initializes the interval <code>[left, right]</code> to <code>[start value, stop value]</code>. At every iteration, if the mid-point of the interval is feasible, it uses the interval <code>[left, mid-point]</code> as the new interval, and if it is infeasible, it uses <code>[mid-point, right]</code>. The procedure stops when the interval length is smaller than <code>precision</code>. Thus, if the metric value is monotonically increasing in the direction of <code>start value</code> to <code>stop value</code>, then the binary search will also output the satisfying value closest to the <code>start value</code>, but can be much faster than the linear search. However, with non-monotonicity, it could miss the closest satisfying value, which may be undesirable. <br>
+
+        When the search is successful, the parameter value is updated. When it is not, the parameter value remains the same, and an error message banner alerts the user of the failure. 
+
+        <h5>Panel E</h5>
+        This panel visualizes the rules and rule union on specific data instances. On top are three control buttons. 
+        <ul>
+          <li>The first button toggles between visualizing the whole rule union and visualizing only the selected rule. </li>
+          <li>The second button toggles between visualizing the entire sentence or only one FEU within the sentence. </li>
+          <li>The last button shuffles the data and presents a new batch of instances. A random seed for the shuffling is used, so batch sequences are the same for multiple <code>exsum</code> runs. </li>
+        </ul>
+        The syntax highlighting on each word conveys additional information. 
+        <ul>
+          <li>The ground truth and model prediction (in probability for the positive label) is shown at the beginning, on the left and right of the colon respectively. When the prediction is correct (using 0.5 as the threshold), the text is in <span style="color: #2fa831">green</span>. Otherwise, the text is in <span style="color: #ff0000">red</span>. </li>
+          <li>An <u>underline</u> under a word means that it is covered (by the selected rule or the rule union, depending on toggled value in the first button). </li>
+          <li>For a covered word, the <b>bold</b> font means that it is valid according to the behavior function, and the normal font means that it is invalid. </li>
+          <li>The color on each word represents its attribution value, with the value of 1.0 rendered in full <span style="color: #ff0000">red</span>, and value of -1.0 rendered in full <span style="color: #0088ff">blue</span>. Thus, to effectively use this functionality, it is recommended that attribution values are normalized to have maximum magnitude of 1.0. </li>
+          <li>Hovering the mouse on each word reveals a tooltip showing the numeric attribution value and the rule (if any) that covers this word. An example is shown in the image below (in this case, Rule 19 is invalid on the word "serious" because the word is not in bold font). 
+            <div class="d-flex justify-content-center">
+              <img src="tooltip.png" style="margin: 5px;">
+            </div>
+          </li>
+        </ul>
+        In addition, clicking on each sentence opens up a pop-up of detailed information of the sentence. The major addition is the table of feature values for each word. An example is shown below. The last column also shows the attribution value for each word in a bar chart. 
+        <div class="d-flex justify-content-center">
+          <img src="feature_table.png" width="80%" style="margin: 10px;">
+        </div>
+
+        When the second button is toggled to the FEU mode, a random applicable word (FEU) is selected, and it is <u>underlined</u>. Its behavior function output is plotted along with its actual attribution value. In the image below, the whole <span style="color: #aaaaaa">gray</span> bar represents attribution values from -1.0 to 1.0. The <span style="color: #e6c017">yellow</span> bar represents the behavior function output. The dot represents the attribution value of the word, with <span style="color: #2fa831">green</span> for a valid prediction by the behavior function and <span style="color: #ff0000">red</span> for an invalid prediction. Againt, because the range of [-1.0, 1.0] is used, the attribution values should be normalized to within this range for correct rendering. 
+        <div class="d-flex justify-content-center">
+          <img src="feu_vis.png" width="55%" style="margin: 5px;">
+        </div>
+
+        One issue with the FEU mode is that the information density is much lower, as row of the visualization can only be used to visualize one word. Thus, to give a sense of how well the behavior function performs overall (e.g. is it too narrow, too wide, or even improperly skewed), additional FEUs are visualized with the bar graphics only at the end, as shown in the image below. 
+        <div class="d-flex justify-content-center">
+          <img src="additional_feu_vis.png" width="55%" style="margin: 5px;">
+        </div>
+
+        The sentence and FEU corresponding to each bar can be inspected in the same pop-up table by clicking on the bar, where the FEU has its row highlighted, as shown in the image below (the FEU is the fourth word "so"). 
+        <div class="d-flex justify-content-center">
+          <img src="feu_feature_table.png" width="80%" style="margin: 10px;">
+        </div> 
+
+        Finally, the user can also hide all valid FEUs and just focus on invalid ones, using a button that appears in this mode, as shown in the image below. 
+        <div class="d-flex justify-content-center">
+          <img src="four_buttons.png" width="75%" style="margin: 5px;">
+        </div>
+
+        The effect of toggling this button is shown in the image below. 
+        <div class="d-flex justify-content-center">
+          <img src="invalid_feu_vis.png" width="55%" style="margin: 5px;">
+        </div>
 
 
         <h4 id='dev_manual'>Development Manual [<a href="#top">Back to Top</a>]</h4>
-        <h5>Class Structure</h5>
         <i>It is strongly recommended to read the paper first, in order to understand the high-level ideas and goals of the package. </i><br>
-
+        
+        <h5>Class Structure</h5>
         The diagram below describes the has-a relationship among classes as a tree, where parent nodes contain child nodes. All classes are under the package namespace <code>exsum</code> (e.g. the fully quantified class name for <code>Model</code> is <code>exsum.Model</code>). The three green classes represent list membership. For example, a <code>Rule</code> has a list of <code>Parameter</code>s. For the <code>BehaviorRange</code> shown in yellow, it is technically not contained in <code>Rule</code>, but is instead produced by its behavior function. We include it here for completeness. The top-level <code>Model</code> object is passed to the command <code>exsum</code> to start the GUI visualization. 
         <div class="d-flex justify-content-center">
           <img src="exsum_diagram.svg" width="60%">

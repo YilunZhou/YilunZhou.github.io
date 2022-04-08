@@ -55,7 +55,7 @@
     </style>
   </head>
   <body>
-    <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">ExSum: Explanation Summary for Quantifying Generalized Model Insights</h2>
+    <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">ExSum: The Explanation Summary Framework for Deriving<br>Generalized Model Understandings from Local Explanations</h2>
     <h5 style="text-align: center; margin-bottom: 5px; margin-top: 20px;">
       <a href="https://yilun.scripts.mit.edu/">Yilun Zhou</a><sup>1</sup>,
       <a href="https://homes.cs.washington.edu/~marcotcr/">Marco Tulio Ribeiro</a><sup>2</sup>,
@@ -85,21 +85,21 @@
 
       <div class='col col-12'>
         <p style="text-align: justify; text-justify: inter-word;">
-          <b>TLDR:</b> Local explanations (e.g. saliency maps and feature attributions) can reveal properties of models, but they are fundamentally a means to an end — the end of understanding models in a reliable and generalizable manner. How good are they in being the means, i.e. how can we ensure high-quality model insights from these local explanations? ExSum provides a mathematical formalization for the construction and evaluation of the model insights. 
+          <b>TLDR:</b> Useful local explanations need to be both correct and easily understandable. While the definition and evaluation of correctness have received much attention, those on understandability is mostly overlooked. We present ExSum, the first framework to formally quantify and evaluate the understandability of local explanations. Experimental results demonstrate that we indeed stand to benefit from such a careful analysis. 
         </p>
         <p style="text-align: justify; text-justify: inter-word;">
           <b>Code:</b> We provide an easy-to-use package for you to play with the ExSum experiments described in the paper and use it for your models and datasets. Just <code>pip install exsum</code> and follow the <a href="/exsum/documentation.html">documentation</a> to get started. 
         </p>
         <p style="text-align: justify; text-justify: inter-word;">
-          <b>Abstract:</b> TODO
+          <b>Abstract:</b> Interpretability methods are developed to understanding the working mechanisms of black-box models, which is crucial to their responsible deployment. However, fulfilling this goal requires both that the explanations are correct and that people can correctly and easily understand these explanations. While much work has studied the former, people often overlook the latter and obtain quite informal understandings from a handful of local explanations. In this paper, we introduce Explanation Summary (ExSum), a mathematical framework to quantify such understandings and propose metrics for quality assessment. On two domains, ExSum highlights various limitations in the current practice of model understandings, helps with extracting better ones, and reveals hidden model properties. Last, we connect the notion of understandability to other commonly mentioned and desired properties for explanations such as human alignment, robustness, and counterfactual minimality and plausibility. 
         </p>
       </div>
 
       <div class='col col-12'>
         <div class="card bg-light">
-          <div class="card-body" style='padding: 10px; font-size: 12pt; font-family: monospace;'>
+          <div class="card-body" style='padding: 10px; font-size: 11pt; font-family: monospace;'>
             @inproceedings{zhou2022exsum,<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;title = {ExSum: Explanation Summary for Quantifying Generalized Model Insights},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;title = {ExSum: The Explanation Summary Framework for Deriving Generalized Model Understandings from Local Explanations},<br>
               &nbsp;&nbsp;&nbsp;&nbsp;author = {Zhou, Yilun and Ribeiro, Marco Tulio and Shah, Julie},<br>
               &nbsp;&nbsp;&nbsp;&nbsp;booktitle = {Annual Conference of the North American Chapter of the Association for Computational Linguistics},<br>
               &nbsp;&nbsp;&nbsp;&nbsp;year = {2022},<br>
