@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="icon" type="image/x-icon" href="/ExSum/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/exsum/favicon.ico">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -53,9 +53,9 @@
         The first argument <code>model-fn</code> specifies an <code>exsum.Model</code> object. It could be one of the following two: 
         <ol>
           <li>a Python script (ending with <code>.py</code>) that defines this object in the global namespace with the default variable name being <code>model</code>, or</li>
-          <li>a Python pickle file (ending with <code>.pkl</code>) of that object. Note that since <code>exsum.Model</code> objects contain functions as instance variables (as described below), it need to be constructed by the <code>dill</code> library. </li>
+          <li>a Python pickle file (ending with <code>.pkl</code>) of that object. Note that since <code>exsum.Model</code> objects contain functions as instance variables (as described below), it need to be pickled by the <code>dill</code> library. </li>
         </ol>
-        How to construct this object is detailed in the <a href="#dev_manual">Development Manual</a> section, but briefly, it contains the following data: 
+        Steps to construct this object are detailed in the <a href="#dev_manual">Development Manual</a> section, but briefly, it contains the following data: 
         <ul>
           <li>the rule union with its constituent rules,</li>
           <li>the dataset on which the rule union and individual rules are evaluated, and</li>
