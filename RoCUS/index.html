@@ -20,7 +20,37 @@
         color: black;
         font-size: 14px;
       }
-      </style>
+
+      /* Set your aspect ratio */
+      .video-container {
+      position: relative;
+      overflow: hidden;
+      height: 0;
+      padding-bottom: 56.25%; /* creates a 16:9 aspect ratio */
+      text-align: center;
+      width: 800px;
+      max-width: 100%;
+      margin: 0 auto;
+      }
+
+      .video-container iframe{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      }
+
+      /* And set the max-width of the parent element */
+      .video-wrap {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      }
+    
+    </style>
+
   </head>
   <body>
     <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">RoCUS: Robot Controller Understanding by Sampling</h2>
@@ -39,32 +69,16 @@
       [<a href="https://openreview.net/forum?id=5P_3bRWiRsF">OpenReview</a>] &nbsp;&nbsp;
       [<a href="https://github.com/YilunZhou/RoCUS">GitHub Repo</a>]</h6>
     <div class="container">
-      <div class="col col-12 mb-4">
-        <div class='row'>
-        <div class="col col-5">
-        <iframe width="100%", height="100%", src="https://www.youtube.com/embed/IZigHZ4Gvf4" title="YouTube video player"
-          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-        </div>
-        <div class="col col-7">
-          <div class="card bg-light">
-            <div class="card-body" style="padding: 10px">
-                <code>
-                  @inproceedings{zhou2021rocus,<br>
-                  &nbsp;&nbsp;title = {RoCUS: Robot Controller Understanding via Sampling},<br>
-                  &nbsp;&nbsp;author = {Zhou, Yilun and Booth, Serena and Figueroa, Nadia and Shah, Julie},<br>
-                  &nbsp;&nbsp;booktitle = {Proceedings of the 5th Conference on Robot Learning},<br>
-                  &nbsp;&nbsp;year = {2021},<br>
-                  &nbsp;&nbsp;month = {Nov},<br>
-                  &nbsp;&nbsp;series = {Proceedings of Machine Learning Research},<br>
-                  &nbsp;&nbsp;publisher = {PMLR}<br>
-                  }
-                </code>
-            </div>
+
+      <center>
+        <div class="video-wrap">
+          <div class='col col-12 video-container'>
+            <iframe src="https://www.youtube.com/embed/IZigHZ4Gvf4"
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+            encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
-        </div>
-      </div>
+      </center>
 
       <div class='col col-12'>
         <p style="text-align: justify; text-justify: inter-word;">
@@ -98,6 +112,23 @@
           </ul>
         </p>
       </div>
+
+      <div class='col col-12'>
+        <div class="card bg-light">
+          <div class="card-body" style='padding: 10px; font-size: 12pt; font-family: monospace;'>
+                  @inproceedings{zhou2021rocus,<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;title = {RoCUS: Robot Controller Understanding via Sampling},<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;author = {Zhou, Yilun and Booth, Serena and Figueroa, Nadia and Shah, Julie},<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;booktitle = {Proceedings of the 5th Conference on Robot Learning},<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;year = {2021},<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;month = {Nov},<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;series = {Proceedings of Machine Learning Research},<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;publisher = {PMLR}<br>
+                  }
+          </div>
+        </div>
+      </div>
+
       <h3 style="text-align: center; margin-bottom: 15px; margin-top: 30px;">Team</h3>
       <div class="col col-12 mb-4">
         <div class='row'>
