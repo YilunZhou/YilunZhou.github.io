@@ -1,0 +1,104 @@
+@media all and (min-width: 768px) {
+  .navbar-fixed-width {
+    width: 660px;
+    margin-left: auto;
+    margin-right:auto;
+ }
+}
+
+@media all and (min-width: 992px) {
+  .navbar-fixed-width {
+    width: 900px;
+    margin-left: auto;
+    margin-right:auto;
+  }
+
+}
+
+@media all and (min-width: 1200px) {
+  .navbar-fixed-width {
+    width: 1140px;
+    margin-left: auto;
+    margin-right:auto;
+  }
+}
+
+.image-cropper {
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+img {
+  display: inline;
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+.paper-card>div.row {
+  margin: 0px;
+}
+
+.paper-card {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.paper-card.journal {
+  border-color: #2ca02c;
+}
+
+.paper-card.journal>div.row>div.col.col-9 {
+  background-color: rgba(146, 209, 134, 0.7);
+}
+
+.paper-card.conference {
+  border-color: #ff7f0e;
+}
+
+.paper-card.conference>div.row>div.col.col-9 {
+  background-color: rgba(255, 179, 120, 0.7);
+}
+
+.paper-card.workshop {
+  border-color: #3e80d6;
+}
+
+.paper-card.workshop>div.row>div.col.col-9 {
+  background-color: rgba(174, 199, 232, 0.7);
+}
+
+.paper-card.preprint {
+  border-color: #969644;
+}
+
+.paper-card.preprint>div.row>div.col.col-9 {
+  background-color: rgba(219, 219, 141, 0.7);
+}
+
+.paper-card.other {
+  border-color: rgb(148, 103, 189);
+}
+
+.paper-card.other>div.row>div.col.col-9 {
+  background-color: rgba(197, 176, 213, 0.7);
+}
+
+.paper-card.submission {
+  border-color: #7f7f7f;
+}
+
+.paper-card.submission>div.row>div.col.col-9 {
+  background-color: #d7d7d7;
+}
+
+.paper-card>div.row>div.col.col-9 {
+  padding-bottom: 2px;
+}
+
+.paper-card.highlight {
+  border-style: dashed;
+  border-width: 2px;
+  padding: 6px;
+  border-radius: 8px;
+}
