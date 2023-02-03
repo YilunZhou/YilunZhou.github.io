@@ -299,7 +299,7 @@ preprocess = transforms.Compose([
         logits = model(imgs)
     probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
     return probs</code></pre>
-            <p>Next we prepare the input image and instantiate the explainer. <code>ImageGridMasker</code> takes two arguments. <code>resolution</code> specifies the grid resolution. In our case, we want a <code>5 x 5</code> grid. It can also be a 2-tuple <code>(r_h, r_w)</code>, for height and width resolutions. <code>fill_value</code> specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the grid cell and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
+            <p>Next we prepare the input image and instantiate the explainer. <code>ImageGridMasker</code> takes two arguments. <code>resolution</code> specifies the grid resolution. In our case, we want a <code>5 x 5</code> grid. It can also be a 2-tuple <code>(r_h, r_w)</code>, for height and width resolutions. <code>fill_value</code> specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the grid cell and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or an <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
               <pre><code># download the image and resize to have shorter side length of 224 pixels
 url = 'https://yilunzhou.github.io/solvability/cat_and_dog.jpg'
 image = Image.open(BytesIO(requests.get(url).content))
@@ -373,7 +373,7 @@ preprocess = transforms.Compose([
         logits = model(imgs)
     probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
     return probs</code></pre>
-            <p>Next we prepare the input image and instantiate the explainer. <code>ImageSegmentationMasker</code> takes an argument <code>fill_value</code> that specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the superpixel and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
+            <p>Next we prepare the input image and instantiate the explainer. <code>ImageSegmentationMasker</code> takes an argument <code>fill_value</code> that specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the superpixel and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or an <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
               <pre><code># download the image and resize to have shorter side length of 224 pixels
 url = 'https://yilunzhou.github.io/solvability/cat_and_dog.jpg'
 image = Image.open(BytesIO(requests.get(url).content))
