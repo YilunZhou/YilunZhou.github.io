@@ -149,8 +149,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 name = 'textattack/roberta-base-SST-2'
 tokenizer = AutoTokenizer.from_pretrained(name)
-model = AutoModelForSequenceClassification.from_pretrained(name).to(device)
-model.eval()</code></pre>
+model = AutoModelForSequenceClassification.from_pretrained(name).to(device).eval()</code></pre>
             <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., words) from a piece of text, <code>TextWordMasker</code> expects the text to be a pre-tokenized list of words and returns another list of words. Thus, <code>sentences</code> is a list in which each element is a list of words and the function below needs to <code>join</code> each sentence back to a string. </p>
             <pre><code>def model_func(sentences):
     sentences = [' '.join(s) for s in sentences]
@@ -207,8 +206,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 name = 'textattack/albert-base-v2-yelp-polarity'
 tokenizer = AutoTokenizer.from_pretrained(name)
-model = AutoModelForSequenceClassification.from_pretrained(name).to(device)
-model.eval()</code></pre>
+model = AutoModelForSequenceClassification.from_pretrained(name).to(device).eval()</code></pre>
             <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., sentences) from a piece of text, <code>TextWordMasker</code> takes the text as a string and returns another string. Thus, <code>texts</code> is a list of strings. </p>
             <pre><code>def model_func(texts):
     tok = tokenizer(texts, return_tensors='pt', padding=True).to(device)
@@ -401,15 +399,15 @@ e_cat = explainer.explain_instance(image, label=285, seg_mask=seg_mask)  # Egypt
           <p>It prints out the following texts: </p>
           <pre><code>Explained label: 232
 Function value for label 232: 0.159
-Grid cell feature attribution:
-+------------+------------+
-| Cell idx   |   Attr val |
-|------------+------------|
-| Cell 0     |       13.5 |
-| Cell 1     |        6.5 |
-| Cell 2     |       21.5 |
-| Cell 3     |       19.5 |
-...(more rows not shown)...
+Superpixel feature attribution:
++------------------+------------+
+| Superpixel idx   |   Attr val |
+|------------------+------------|
+| Superpixel 0     |       13.5 |
+| Superpixel 1     |        6.5 |
+| Superpixel 2     |       21.5 |
+| Superpixel 3     |       19.5 |
+......(more rows not shown)......
 </code></pre>
           <p>The second one is color overlay on top of the input image (i.e., the typical saliency map visualization). </p>
           <pre><code>masker.render_result(image, e_dog, mode='color', execute=True, seg_mask=seg_mask)
