@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/x-icon" href="/solvability/favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/solvability/stackoverflow-light.min.css">
+    <script src="/solvability/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <title>Interpretability Solvability</title>
+
+    <style>
+      /* Set your aspect ratio */
+      .video-container {
+        position: relative;
+        overflow: hidden;
+        height: 0;
+        padding-bottom: 56.25%; /* creates a 16:9 aspect ratio */
+        text-align: center;
+        width: 800px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      code { 
+        background-color: #eee; 
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+
+      a code { 
+        background-color: #eee;
+        color: #e83e8c; 
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        text-decoration: underline;
+      }
+
+      .video-container iframe{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+      }
+
+      /* And set the max-width of the parent element */
+      .video-wrap {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+      }
+
+      p {
+        text-align: justify; 
+        text-justify: inter-word;
+        margin-bottom: 8px;
+      }
+
+      pre {
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">The Solvability of Interpretability Evaluation Metrics</h2>
+    <h5 style="text-align: center; margin-bottom: 5px; margin-top: 20px;">
+      <a href="https://yilun.scripts.mit.edu/">Yilun Zhou</a>,
+      <a href="https://interactive.mit.edu/">Julie Shah</a>
+    </h5>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      MIT CSAIL
+    </h6>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      [<a href="https://arxiv.org/pdf/2205.08696.pdf">Full Paper</a>] &nbsp;&nbsp;
+      [<a href="https://github.com/YilunZhou/solvability">GitHub Repo</a>]
+    </h6>
+    <h6 style="text-align: center; margin-bottom: 15px; margin-top: 10px;">EACL 2023 (Findings)</h6>
+
+
+    <div class="container">
+
+      <div class='col col-12' style="margin-top: 0px;">
+        <p style="text-align: justify; text-justify: inter-word;">
+          <b>TLDR:</b> We identify the <i>solvability</i> property of interpretability evaluation metrics (e.g., comprehensiveness and sufficiency), which leads to a systematic way of defining high-performing explainers (<code>pip install solvex</code> and see below for demos) and a broader notion of definition-evaluation duality. 
+        </p>
+      </div>
+
+      <div class='col col-12'>
+        <ul class="nav nav-tabs justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="#video" role="tab" data-toggle="tab" aria-selected="true">Summary</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#nlp_word" role="tab" data-toggle="tab" aria-selected="true">NLP - Word</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#nlp_sentence" role="tab" data-toggle="tab" aria-selected="true">NLP - Sentence</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cv_grid" role="tab" data-toggle="tab">CV - Grid Superpixel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cv_custom" role="tab" data-toggle="tab">CV - Custom Superpixel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tabular" role="tab" data-toggle="tab">Tabular</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="margin-top: 10px; margin-bottom: 10px;">
+          <div role="tabpanel" class="tab-pane active" id="video">
+            <p style="text-align: justify; text-justify: inter-word;">
+              <b>Abstract:</b> Feature attribution methods are popular for explaining neural network predictions, and they are often evaluated on metrics such as comprehensiveness and sufficiency. In this paper, we highlight an intriguing property of these metrics: their <i>solvability</i>. Concretely, we can define the problem of optimizing an explanation for a metric and solve it using beam search, which leads to the obvious yet unaddressed question: why do we use explainers (e.g., LIME) not based on solving the target metric, if the metric value represents explanation quality? We present a series of investigations showing the strong performance of this beam search explainer and discuss its broader implication: a definition-evaluation duality of interpretability concepts. We implement the explainer and release the Python package <code>solvex</code> for models of text, image and tabular domains. 
+            </p>
+            <center>
+              <div class="video-wrap">
+                <div class='video-container'>
+                  <iframe src="https://www.youtube.com/embed/kAodFw6jvvo"
+                  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            </center>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="nlp_word" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <p>In this demo, we compute word-level explanations for the Huggingface <a href="https://huggingface.co/textattack/roberta-base-SST-2"><code>textattack/roberta-base-SST-2</code></a> model, also the setup presented in the paper. </p>
+            <p>We first load required packages and the RoBERTa model. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>TextWordMasker</code> since we need to mask out individual words from a text input. The other demos showcase other <code>*Masker</code>s. </p>
+            <pre><code>from solvex import BeamSearchExplainer, TextWordMasker
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+name = 'textattack/roberta-base-SST-2'
+tokenizer = AutoTokenizer.from_pretrained(name)
+model = AutoModelForSequenceClassification.from_pretrained(name).to(device)
+model.eval()</code></pre>
+            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., words) from a piece of text, <code>TextWordMasker</code> expects the text to be a pre-tokenized list of words and returns another list of words. Thus, <code>sentences</code> is a list in which each element is a list of words and the function below needs to <code>join</code> each sentence back to a string. </p>
+            <pre><code>def model_func(sentences):
+    sentences = [' '.join(s) for s in sentences]
+    tok = tokenizer(sentences, return_tensors='pt', padding=True).to(device)
+    with torch.no_grad():
+        logits = model(**tok)['logits']
+    probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
+    return probs</code></pre>
+            <p>Now we are ready to explain! We instantiate the explainer, prepare the input sentence (as a list of words), and call the <code>explain_instance</code> function. The <code>suppression</code> argument passed to <code>TextWordMasker</code> tells the masker how to mask out a word. In this case, we simply delete it. The <code>label</code> argument to <code>explain_instance</code> specifies which label we want to generate the explanation for. In our case, we want to explain the positive class, which is label <code>1</code>. If it is not specified, the label with the highest function value will be used. 
+              <pre><code>sentence = 'A triumph , relentless and beautiful in its downbeat darkness .'.split(' ')
+masker = TextWordMasker(suppression='remove')
+explainer = BeamSearchExplainer(masker, f=model_func, beam_size=50, batch_size=50)
+e = explainer.explain_instance(sentence, label=1)</code></pre>
+          <p>The explanation <code>e</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
+          <pre><code>print(e)
+# should show: {'exp': [1.5, 8.5, 3.5, 2.5, 4.5, 9.5, 5.5, 7.5, 6.5, -0.5, 0.5], 'label': 1, 'pred': 0.9996933}</code></pre>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>TextWordMasker</code> class has three. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. The first one is console printing. </p>
+          <pre><code>masker.render_result(sentence, e, mode='text', execute=True)</code></pre>
+          <p>It prints out the following texts: </p>
+          <pre><code>Input: A triumph , relentless and beautiful in its downbeat darkness .
+Explained label: 1
+Function value for label 1: 1.000
+Word feature attribution:
++------------+------------+
+| Word       |   Attr val |
+|------------+------------|
+| A          |        1.5 |
+| triumph    |        8.5 |
+| ,          |        3.5 |
+...(more rows not shown)...
+</code></pre>
+          <p>The second one is color rendering. </p>
+          <pre><code>masker.render_result(sentence, e, mode='color', execute=True)</code></pre>
+          <p>It writes an HTML snippet to a file named <code>explanation.html</code>, which is rendered below. </p>
+          <div style="border: solid; border-width: 1px; margin-top: 5px; margin-bottom: 5px; padding-left: 10px; padding-right: 10px; padding-bottom: 5px;">Explained label: 1<br>Function value for label 1: 1.000<br><pre style="white-space: pre-wrap; margin: 0px;"><span style="background-color: rgb(222, 204, 200);">A</span> <span style="background-color: rgb(230, 129, 106);">triumph</span> <span style="background-color: rgb(225, 183, 173);">,</span> <span style="background-color: rgb(223, 194, 187);">relentless</span> <span style="background-color: rgb(226, 172, 160);">and</span> <span style="background-color: rgb(232, 119, 93);">beautiful</span> <span style="background-color: rgb(227, 161, 146);">in</span> <span style="background-color: rgb(229, 139, 119);">its</span> <span style="background-color: rgb(228, 151, 133);">downbeat</span> <span style="background-color: rgb(215, 217, 222);">darkness</span> <span style="background-color: rgb(221, 215, 214);">.</span> </pre>
+          </div>
+          <p>The last one is plotting. </p>
+            <pre><code>masker.render_result(sentence, e, mode='plot', execute=True)</code></pre>
+          <p>It generates a <code>matplotlib</code> figure, which is shown below. </p>
+          <center>
+            <img src="/solvability/explanation_text_word.png">
+          </center>
+          <p>And that's it! Want to learn more? Check out the other tabs for more use cases. If you want to gain a deeper understanding of the <code>*Masker</code> classes and implement your own, check out this jupyter notebook for an example where we build one from scratch and browse the documentations. Bugs? Suggestions? Questions? Ask away on <a href='https://github.com/YilunZhou/solvability-explainer'>GitHub</a>!</p>
+          </div>
+
+
+          <div role="tabpanel" class="tab-pane fade" id="nlp_sentence" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <p>In this demo, we compute sentence-level explanations for the Huggingface <a href="https://huggingface.co/textattack/albert-base-v2-yelp-polarity"><code>textattack/albert-base-v2-yelp-polarity</code></a> model, which is designed to perform sentiment analysis on paragraph-long reviews. If you come from the previous "NLP - Word" tutorial on computing word-level explanations (no worries if not), you may have realized that this problem could be solved by manually "sentencizing" the input text and defining each "sentence" as a "word." However, in this demo, we introduce the <code>TextSentenceMasker</code> class which handles this sentencization automatically, using the <code>spacy</code> package. </p>
+            <p>We first load required packages and the ALBERT model. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>TextSentenceMasker</code> since we need to mask out individual sentences from a text input. The other demos showcase other <code>*Masker</code>s. </p>
+            <pre><code>from solvex import BeamSearchExplainer, TextSentenceMasker
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+name = 'textattack/albert-base-v2-yelp-polarity'
+tokenizer = AutoTokenizer.from_pretrained(name)
+model = AutoModelForSequenceClassification.from_pretrained(name).to(device)
+model.eval()</code></pre>
+            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., sentences) from a piece of text, <code>TextWordMasker</code> takes the text as a string and returns another string. Thus, <code>texts</code> is a list of strings. </p>
+            <pre><code>def model_func(texts):
+    tok = tokenizer(texts, return_tensors='pt', padding=True).to(device)
+    with torch.no_grad():
+        logits = model(**tok)['logits']
+    probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
+    return probs</code></pre>
+            <p>Now we are ready to explain! We instantiate the explainer, prepare the input, and call the <code>explain_instance</code> function. When removing a sentence, <code>TextWordMasker</code> simply deletes it from the paragraph. The <code>label</code> argument to <code>explain_instance</code> specifies which label we want to generate the explanation for. In our case, we want to explain the positive class, which is label <code>1</code>. If it is not specified, the label with the highest function value will be used. 
+              <pre><code class='python'>text = ("Contrary to other reviews, I have zero complaints about "
+        "the service or the prices. I have been getting tire service "
+        "here for the past 5 years now, and compared to my experience "
+        "with places like Pep Boys, these guys are experienced and know "
+        "what they're doing. Also, this is one place that I do not feel "
+        "like I am being taken advantage of, just because of my gender. "
+        "Other auto mechanics have been notorious for capitalizing on "
+        "my ignorance of cars, and have sucked my bank account dry. But "
+        "here, my service and road coverage has all been well explained - "
+        "and let up to me to decide. And they just renovated the waiting "
+        "room. It looks a lot better than it did in previous years.")
+masker = TextSentenceMasker()
+explainer = BeamSearchExplainer(masker, f=model_func, beam_size=50, batch_size=16)
+e = explainer.explain_instance(text, label=1)</code></pre>
+          <p>The explanation <code>e</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
+          <pre><code>print(e)
+# should show: {'exp': [1.5, 4.5, -0.5, -1.5, 3.5, 0.5, 2.5], 'label': 1, 'func_val': 0.99981827}</code></pre>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>TextSentenceMasker</code> class has three. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. The first one is console printing. </p>
+          <pre><code>masker.render_result(text, e, mode='text', execute=True)</code></pre>
+          <p>It prints out the following texts: </p>
+          <pre><code>Explained label: 1
+Function value for label 1: 1.000
+Sentence feature attribution:
++--------------------------------------------------------------+------------+
+| Sentence                                                     |   Attr val |
+|--------------------------------------------------------------+------------|
+| Contrary to other reviews, I have zero complaints about the  |        1.5 |
+| service or the prices.                                       |            |
+|--------------------------------------------------------------+------------|
+| I have been getting tire service here for the past 5 years   |        4.5 |
+| now, and compared to my experience with places like Pep      |            |
+| Boys, these guys are experienced and know what they're       |            |
+| doing.                                                       |            |
+|--------------------------------------------------------------+------------|
+| Also, this is one place that I do not feel like I am being   |       -0.5 |
+| taken advantage of, just because of my gender.               |            |
+............................(more rows not shown)............................
+</code></pre>
+          <p>The second one is color rendering. </p>
+          <pre><code>masker.render_result(text, e, mode='color', execute=True)</code></pre>
+          <p>It writes an HTML snippet to a file named <code>explanation.html</code>, which is rendered below. </p>
+          <div style="border: solid; border-width: 1px; margin-top: 5px; margin-bottom: 5px; padding-left: 10px; padding-right: 10px; padding-bottom: 5px;">Explained label: 1<br>Function value for label 1: 1.000<br><pre style="white-space: pre-wrap;"><span style="background-color: rgb(224, 187, 178);">Contrary to other reviews, I have zero complaints about the service or the prices.</span> <span style="background-color: rgb(232, 119, 93);">I have been getting tire service here for the past 5 years now, and compared to my experience with places like Pep Boys, these guys are experienced and know what they're doing.</span> <span style="background-color: rgb(208, 212, 223);">Also, this is one place that I do not feel like I am being taken advantage of, just because of my gender.</span> <span style="background-color: rgb(185, 196, 228);">Other auto mechanics have been notorious for capitalizing on my ignorance of cars, and have sucked my bank account dry.</span> <span style="background-color: rgb(229, 141, 121);">But here, my service and road coverage has all been well explained - and let up to me to decide.</span> <span style="background-color: rgb(222, 209, 206);">And they just renovated the waiting room.</span> <span style="background-color: rgb(227, 163, 149);">It looks a lot better than it did in previous years.</span> </pre>
+          </div>
+          <p>The last one is plotting. </p>
+            <pre><code>masker.render_result(text, e, mode='plot', execute=True)</code></pre>
+          <p>It generates a <code>matplotlib</code> figure, which is shown below. </p>
+          <center>
+            <img src="/solvability/explanation_text_sentence.png">
+          </center>
+          <p>And that's it! Want to learn more? Check out the other tabs for more use cases. If you want to gain a deeper understanding of the <code>*Masker</code> classes and implement your own, check out this jupyter notebook for an example where we build one from scratch and browse the documentations. Bugs? Suggestions? Questions? Ask away on <a href='https://github.com/YilunZhou/solvability-explainer'>GitHub</a>!</p>
+          </div>
+          
+
+          <div role="tabpanel" class="tab-pane fade" id="cv_grid" style="border-bottom: 1px solid; border-color: #dee2e6;"><p>In this demo, we compute explanations for the ResNet-50 trained on ImageNet, where we define a grid of superpixels as features to perturb. The image below shows the grid superpixel segmentation. We consider each grid cell as a feature. </p>
+            <center>
+              <img src="/solvability/grid.png" style="max-width: 45%;">
+            </center>
+            <p>We first load required packages, the ResNet model and its preprocessing pipeline. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>ImageGridMasker</code> since we need to mask out individual grid cells from an image input. The other demos showcase other <code>*Masker</code>s. </p>
+            <pre><code>from solvex import BeamSearchExplainer, ImageGridMasker
+import requests
+from io import BytesIO
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+import torch
+from torchvision import transforms
+from torchvision.models import resnet50
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+model = resnet50(weights='IMAGENET1K_V2').to(device)
+model.eval()
+preprocess = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+])</code></pre>
+            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., pixel grids) from an image, <code>ImageGridMasker</code> expects the image to be a <code>PIL.Image.Image</code> object and returns another such object. Thus, <code>imgs</code> is a list of <code>PIL.Image.Image</code> objects. </p>
+            <pre><code>def model_func(imgs):
+    imgs = torch.stack([preprocess(img) for img in imgs], dim=0).to(device)
+    with torch.no_grad():
+        logits = model(imgs)
+    probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
+    return probs</code></pre>
+            <p>Next we prepare the input image and instantiate the explainer. <code>ImageGridMasker</code> takes two arguments. <code>resolution</code> specifies the grid resolution. In our case, we want a <code>5 x 5</code> grid. It can also be a 2-tuple <code>(r_h, r_w)</code>, for height and width resolutions. <code>fill_value</code> specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the grid cell and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
+              <pre><code># download the image and resize to have shorter side length of 224 pixels
+url = 'https://yilunzhou.github.io/solvability/cat_and_dog.jpg'
+image = Image.open(BytesIO(requests.get(url).content))
+ratio =  224 / min(image.size)
+image = image.resize((np.array(image.size) * ratio).astype('int32'))
+
+masker = ImageGridMasker(resolution=5, fill_value='global_mean')
+explainer = BeamSearchExplainer(masker, f=model_func, beam_size=50, batch_size=50)
+</code></pre>
+          <p>Now we are ready to explain! The image shows a dog and a cat, and we are interested in which pixels contribute the most to each label. Since there are multiple ImageNet classes for different dog and cat species, we choose the class with the highest predicted probability for each, which is class 232 (Border collie) for dog (15.9%) and class 285 (Egyptian cat) for cat (1.0%). We specify the target class via the <code>label</code> argument to <code>explain_instance</code>. If it is not provided, the label with the highest function value will be used. </p>
+          <pre><code>e_dog = explainer.explain_instance(image, label=232)  # Border collie
+e_cat = explainer.explain_instance(image, label=285)  # Egyptian cat
+</code></pre>
+          <p>The explanation <code>e_dog</code>/<code>e_cat</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
+          <pre><code>print(e_dog)
+# should show: {'exp': [7.5, 5.5, 13.5, 17.5, 8.5, 6.5, -6.5, -5.5, 10.5, 4.5, -1.5, -4.5, -2.5, 2.5, 11.5, 9.5, 1.5, -0.5, 3.5, 14.5, 12.5, 16.5, 0.5, -3.5, 15.5], 'label': 232, 'func_val': 0.15883905}</code></pre>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>ImageGridMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. The first one is console printing. </p>
+          <pre><code>masker.render_result(image, e_dog, mode='text', execute=True)</code></pre>
+          <p>It prints out the following texts: </p>
+          <pre><code>Explained label: 232
+Function value for label 232: 0.159
+Grid cell feature attribution:
++------------+-----------+-----------+------------+
+| Cell idx   | Row idx   | Col idx   |   Attr val |
+|------------+-----------+-----------+------------|
+| Cell 0     | row 0     | col 0     |        7.5 |
+| Cell 1     | row 0     | col 1     |        5.5 |
+| Cell 2     | row 0     | col 2     |       13.5 |
+| Cell 3     | row 0     | col 3     |       17.5 |
+...............(more rows not shown)...............
+</code></pre>
+          <p>The second one is color overlay on top of the input image (i.e., the typical saliency map visualization). </p>
+          <pre><code>masker.render_result(image, e_dog, mode='color', execute=True)
+masker.render_result(image, e_cat, mode='color', execute=True)</code></pre>
+          <p>Each line creates a <code>matplotlib</code> figure, and we show both below (dog on the left, cat on the right). </p>
+          <center>
+            <img src="/solvability/explanation_dog_grid.png" style="max-width: 45%;">
+            <img src="/solvability/explanation_cat_grid.png" style="max-width: 45%;">
+          </center>
+          <p>For the dog class explanation, most grid cells on the dog have very positive influence (red colors), while those on the cat face have mildly negative influence (blue colors). Curiously, the cat feet grid cell has high positive influence -- probably the model confusing them as dog feet? </p>
+          <p>For the cat class explanation, grid cells on the dog have very negative influence, meaning that their removal would significantly increase predicted probability for the cat class. By comparison, none of the features have strong positive influence. This also makes sense: we define a feature to have high positive influence if its removal greatly decreases the predicted probability, but the current probability of 1.0% is already quite low! </p>
+          <p>And that's it! Want to learn more? Check out the other tabs for more use cases. If you want to gain a deeper understanding of the <code>*Masker</code> classes and implement your own, check out this jupyter notebook for an example where we build one from scratch and browse the documentations. Bugs? Suggestions? Questions? Ask away on <a href='https://github.com/YilunZhou/solvability-explainer'>GitHub</a>!</p>
+          </div>
+
+
+          <div role="tabpanel" class="tab-pane fade" id="cv_custom" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <p>In this demo, we compute explanations for the ResNet-50 trained on ImageNet, where we use a custom segmentation mask to define superpixels (similar to the implementation of the LIME explanation). </p>
+            <p>We first load required packages, the ResNet model and its preprocessing pipeline. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>ImageSegmentationMasker</code> since we need to mask out individual superpixels from an image input. The other demos showcase other <code>*Masker</code>s. </p>
+            <pre><code>from solvex import BeamSearchExplainer, ImageSegmentationMasker
+import requests
+from io import BytesIO
+from PIL import Image
+import numpy as np
+import skimage
+import matplotlib.pyplot as plt
+import torch
+from torchvision import transforms
+from torchvision.models import resnet50
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+model = resnet50(weights='IMAGENET1K_V2').to(device)
+model.eval()
+preprocess = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+])</code></pre>
+            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., superpixels) from an image, <code>ImageSegmentationMasker</code> expects the image to be a <code>PIL.Image.Image</code> object and returns another such object. Thus, <code>imgs</code> is a list of <code>PIL.Image.Image</code> objects. </p>
+            <pre><code>def model_func(imgs):
+    imgs = torch.stack([preprocess(img) for img in imgs], dim=0).to(device)
+    with torch.no_grad():
+        logits = model(imgs)
+    probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
+    return probs</code></pre>
+            <p>Next we prepare the input image and instantiate the explainer. <code>ImageSegmentationMasker</code> takes an argument <code>fill_value</code> that specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the superpixel and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
+              <pre><code># download the image and resize to have shorter side length of 224 pixels
+url = 'https://yilunzhou.github.io/solvability/cat_and_dog.jpg'
+image = Image.open(BytesIO(requests.get(url).content))
+ratio =  224 / min(image.size)
+image = image.resize((np.array(image.size) * ratio).astype('int32'))
+
+masker = ImageSegmentationMasker(resolution=5, fill_value='global_mean')
+explainer = BeamSearchExplainer(masker, f=model_func, beam_size=50, batch_size=50)
+</code></pre>
+          <p>We need to define the segmentation mask for the image. A mask is a 2D integer matrix of the same height and width as the image, and values start from 0, where pixels of the same number belong to the same superpixel segment. We use the SLIC algorithm, implemented by the scikit-image package (note that the algorithm can produce fewer than the requested 40 segments; in our case, we have 29). We can visualize the mask using <code>matplotlib</code>. </p>
+          <pre><code class='python'>seg_mask = skimage.segmentation.slic(image, n_segments=40, start_label=0)
+plt.imshow(seg_mask)
+plt.show()</code></pre>
+          <center><img src="/solvability/segmentation.png" style="max-width: 40%"></center>
+
+          <p>Now we are ready to explain! The image shows a dog and a cat, and we are interested in which pixels contribute the most to each label. Since there are multiple ImageNet classes for different dog and cat species, we choose the class with the highest predicted probability for each, which is class 232 (Border collie) for dog (15.9%) and class 285 (Egyptian cat) for cat (1.0%). In <code>explain_instance</code>, we specify the target class via the <code>label</code> argument, and the segmentation mask via the <code>seg_mask</code> argument. If <code>label</code> is not provided, the label with the highest function value will be used. The <code>seg_mask</code> argument is not a standard argument to the function, but instead "extra information" provided to the explainer, which pushes all such information further to the <code>ImageSegmentationMasker</code>. For more information about how this works, see this advanced tutorial of implementing custom maskers. </p>
+          <pre><code>e_dog = explainer.explain_instance(image, label=232, seg_mask=seg_mask)  # Border collie
+e_cat = explainer.explain_instance(image, label=285, seg_mask=seg_mask)  # Egyptian cat
+</code></pre>
+          <p>The explanation <code>e_dog</code>/<code>e_cat</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
+          <pre><code>print(e_dog)
+# should show: {'exp': [13.5, 6.5, 21.5, 19.5, 14.5, 25.5, -1.5, 24.5, 18.5, 1.5, 4.5, -2.5, 20.5, 3.5, 12.5, 9.5, 22.5, -0.5, 2.5, 17.5, 0.5, 23.5, 11.5, 8.5, 10.5, 15.5, 16.5, 7.5, 5.5], 'label': 232, 'func_val': 0.15883905}</code></pre>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>ImageSegmentationMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. The first one is console printing. </p>
+          <pre><code>masker.render_result(image, e_dog, mode='text', execute=True)</code></pre>
+          <p>It prints out the following texts: </p>
+          <pre><code>Explained label: 232
+Function value for label 232: 0.159
+Grid cell feature attribution:
++------------+------------+
+| Cell idx   |   Attr val |
+|------------+------------|
+| Cell 0     |       13.5 |
+| Cell 1     |        6.5 |
+| Cell 2     |       21.5 |
+| Cell 3     |       19.5 |
+...(more rows not shown)...
+</code></pre>
+          <p>The second one is color overlay on top of the input image (i.e., the typical saliency map visualization). </p>
+          <pre><code>masker.render_result(image, e_dog, mode='color', execute=True)
+masker.render_result(image, e_cat, mode='color', execute=True)</code></pre>
+          <p>Each line creates a <code>matplotlib</code> figure, and we show both below (dog on the left, cat on the right). </p>
+          <center>
+            <img src="/solvability/explanation_dog_segmentation.png" style="max-width: 45%;">
+            <img src="/solvability/explanation_cat_segmentation.png" style="max-width: 45%;">
+          </center>
+          <p>For the dog class explanation, most regions on the dog have very positive influence (red colors), while those on the cat face have mildly negative influence (blue colors). Curiously, the lower cat body regions has high positive influence -- probably the model confusing them as dog body parts? </p>
+          <p>For the cat class explanation, regions on the dog have very negative influence, meaning that their removal would significantly increase predicted probability for the cat class. By comparison, none of the features have strong positive influence. This also makes sense: we define a feature to have high positive influence if its removal greatly decreases the predicted probability, but the current probability of 1.0% is already quite low! </p>
+          <p>And that's it! Want to learn more? Check out the other tabs for more use cases. If you want to gain a deeper understanding of the <code>*Masker</code> classes and implement your own, check out this jupyter notebook for an example where we build one from scratch and browse the documentations. Bugs? Suggestions? Questions? Ask away on <a href='https://github.com/YilunZhou/solvability-explainer'>GitHub</a>!</p>
+          </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="tabular" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <p>In this demo, we compute explanations for a random forest classifier trained on the <a href="https://archive.ics.uci.edu/ml/datasets/adult">Adult (aka Census Income) dataset</a>. The dataset contains 14 input variables, and 1 binary target (income >50K or not). Among the 14 input variables, 13 describe demographic information, and one (fnlwgt) is final weight, or "the number of people the census believes the entry represents." Since this feature is not available at when using the model to make individual prediction, we drop it from the dataset. </p>
+            <p>We first load required packages. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>TabularMasker</code> for tabular data. The other demos showcase other <code>*Masker</code>s. </p>
+            <pre><code>from solvex import BeamSearchExplainer, TabularMasker
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split</code></pre>
+            <p>Next, we read the dataset. The URL points to a CSV file that drops the fnlwgt feature as discussed above, but is otherwise identical to the <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/" target=_blank>official adult.data file</a>. We also record the human-readable feature names and define <code>cat_cols</code> as a list of indices of categorical features. These features will be processed using one-hot encoding for the classifier. </p>
+            <pre><code>D = 13  # input dimension, i.e. number of features
+col_names = ['Age', 'Workclass', 'Education', 'Education-Num', 'Marital-Status', 
+             'Occupation', 'Relationship', 'Race', 'Sex', 'Capital-Gain', 
+             'Capital-Loss', 'Hours-per-Week', 'Native-Country']
+cat_cols = set([1, 2, 4, 5, 6, 7, 8, 12])
+
+def read_data():
+    url = 'https://yilunzhou.github.io/solvability/adult.data'
+    df = pd.read_csv(url, header=None, names=range(14), usecols=range(14))
+    X_data = np.zeros((df.shape[0], df.shape[1] - 1))
+    mappings = []
+    for col_idx in range(df.shape[1] - 1):
+        if col_idx in cat_cols:
+            mapping = {e: i for i, e in enumerate(sorted(list(set(df[col_idx]))))}
+            mapping.update({i: e for e, i in mapping.items()})
+            mappings.append(mapping)
+            X_data[:, col_idx] = df[col_idx].replace(mapping)
+        else:
+            mappings.append(None)
+            X_data[:, col_idx] = df[col_idx]
+    y_data = np.array(df[13].replace({'<=50K': 0, '>50K': 1}))
+    return X_data, y_data, mappings</code></pre>
+            <p>This function returns three variables. <code>X_data</code> and <code>y_data</code> are numpy arrays of shape <code>N x D</code> and <code>N</code>, where <code>N</code> is the number of instances, and <code>D = 13</code> is the number of features. <code>mappings</code> is a list of <code>D</code> elements, one for each feature. If the feature is numerical, the element is <code>None</code>. If it is continuous, it is a 2-way dictionary mapping between feature names and category indices. Thus, for <code>M</code> categories, the dictionary has length of <code>2 * M</code>. </p>
+
+            <p>Since the random forest classifier learns from the one-hot encoding representation, we define a wrapper on the random forest classifier to handle this automatically. </p>
+            <pre><code>class RandomForestWrapper():
+    def __init__(self, num_categories):
+        self.num_categories = num_categories
+    def featurize(self, X):
+        arr = []
+        for x in X:
+            features = []
+            for e, l in zip(x, self.num_categories):
+                if l != -1:
+                    f = np.zeros(l)
+                    if e is not None: 
+                        f[int(e)] = 1
+                else:
+                    f = np.array([e])
+                features.append(f)
+            arr.append(np.concatenate(features))
+        arr = np.array(arr)
+        return arr
+    def fit(self, X, y):
+        self.rf = RandomForestClassifier(random_state=0)
+        return self.rf.fit(self.featurize(X), y)
+    def predict_proba(self, X):
+        return self.rf.predict_proba(self.featurize(X))
+    def score(self, X, y):
+        return self.rf.score(self.featurize(X), y)</code></pre>
+        <p>The <code>num_categories</code> argument in the constructor signals numerical vs. categorical features. Specifically, it is a list of numbers, one for each feature, and a value of <code>-1</code> is used to indicate a numerical feature, and otherwise a categorical feature where the value represents the number of categories. <code>featurize</code> takes in a list of inputs and performs the one-hot encoding. There is a special consideration in this function: it maps a <code>None</code> value for a categorical feature to an all zero vector to represent that none of the categories are active. Its purpose is to deal with the case where this feature is masked out by the explainer. </p>
+
+        <p>Now, we prepare the training and test split, train the model and evaluate it. We should obtain a training accuracy of 97.9% and a test accuracy of 84.6%. </p>
+        <pre><code>X, y, mappings = read_data()
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+num_categories = [len(m) // 2 if m is not None else -1 for m in mappings]
+rf = RandomForestWrapper(num_categories)
+rf.fit(X_train, y_train)
+print(f'Train accuracy: {rf.score(X_train, y_train)}')
+print(f'Test accuracy: {rf.score(X_test, y_test)}')</code></pre>
+
+        <p>Now we are ready to explain! The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we do here. In fact, this is the <code>predict_proba</code> function of our <code>RandomForestWrapper</code>. </p>
+
+        <p>In addition, <code>TabularMasker</code> takes one required argument, a list named <code>suppression</code>, one element for each feature. A value of 'cat' indicates that the feature is categorical (for which the masker replaces the feature value with <code>None</code> to indicate masking). For numerical features, valid values for the latter case are <code>'mean'</code>, <code>'median'</code> and any numerical values. The first two instructs the masker to use the mean or median feature values, so we need to provide a second argument of the dataset (before one-hot encoding) for it to compute them. If it is a numerical value, it uses that value. </p>
+
+        <p>The <code>label</code> argument to <code>explain_instance</code> specifies which label we want to generate the explanation for. In our case, we want to explain the income less than or equal to $50K class, which is label <code>0</code>. If it is not specified, the label with the highest function value will be used. </p>
+        <pre><code>suppression = ['cat' if i in cat_cols else 'mean' for i in range(D)]
+masker = TabularMasker(suppression, X_train)
+explainer = BeamSearchExplainer(masker, f=rf.predict_proba, beam_size=50)
+
+instance = X_test[0]
+e = explainer.explain_instance(instance, label=0)</code></pre>
+          <p>The explanation <code>e</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
+          <pre><code>print(e)
+# should show: {'exp': [8.5, 0.5, 5.5, 4.5, 6.5, -2.5, 9.5, 2.5, 7.5, 1.5, 3.5, -0.5, -1.5], 'label': 0, 'func_val': 0.98}</code></pre>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>TabularMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. We provide <code>col_names</code> and <code>category_mappings</code> so that the rendered results are more human-readable. The first one is console printing. </p>
+          <pre><code>masker.render_result(instance, e, mode='text', execute=True, col_names=col_names, category_mappings=mappings)</code></pre>
+          <p>It prints out the following texts: </p>
+          <pre><code>Explained label: 0
+Function value for label 0: 0.980
+Feature attribution:
++----------------+---------------+------------+
+| Feature        | Value         |   Attr val |
+|----------------+---------------+------------|
+| Age            | 27.0          |        8.5 |
+| Workclass      | Private       |        0.5 |
+| Education      | Some-college  |        5.5 |
+| Education-Num  | 10.0          |        4.5 |
+.............(more rows not shown).............
+</code></pre>
+          <p>The second one is plotting. </p>
+            <pre><code>masker.render_result(instance, e, mode='plot', execute=True, col_names=col_names, category_mappings=mappings)</code></pre>
+          <p>It generates a <code>matplotlib</code> figure, which is shown below. </p>
+          <center>
+            <img src="/solvability/explanation_tabular.png">
+          </center>
+          <p>As we can see, when explaining class 0 (i.e., income less than or equal $50K), the biggest contributing (i.e., positive) factors are age (27), relationship (unmarried) and sex (female). By comparison, the administrative clerical occupation helps toward the <i>more than $50K</i> prediction, as does the United States as native country. In some cases, we may want the positive attribution values to indicate impact towards the "positive" label (i.e., more than $50K). We can use <code>label=1</code> in <code>explain_instance</code>, but a more convenient thing is to add <code>flip=True</code> to the rendering function call. </p>
+          <pre><code>masker.render_result(instance, e, mode='plot', execute=False, flip=True, col_names=col_names, category_mappings=mappings)</code></pre>
+          <center>
+            <img src="/solvability/explanation_tabular_flipped.png">
+          </center>
+          <p>And that's it! Want to learn more? Check out the other tabs for more use cases. If you want to gain a deeper understanding of the <code>*Masker</code> classes and implement your own, check out this jupyter notebook for an example where we build one from scratch and browse the documentations. Bugs? Suggestions? Questions? Ask away on <a href='https://github.com/YilunZhou/solvability-explainer'>GitHub</a>!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class='col col-12'>
+        <div class="card bg-light">
+          <div class="card-body" style='padding: 10px; font-size: 12pt; font-family: monospace;'>
+            @inproceedings{zhou2023solvability,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;title = {The Solvability of Interpretability Evaluation Metrics},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;author = {Zhou, Yilun and Shah, Julie},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;booktitle = {Findings of the Association for Computational Linguistics: EACL},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;year = {2023},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;month = {May},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;publisher = {Association for Computational Linguistics}<br>
+            }
+          </div>
+        </div>
+      </div>
+
+      <h3 style="text-align: center; margin-bottom: 25px; margin-top: 30px;">Authors and Contact</h3>
+      <div class="col col-12 mb-4">
+        <div class='row'>
+          <div class="col col-2" style="text-align: center">
+          </div>
+          <div class="col col-3" style="text-align: center">
+            <img src="../imgs/profile_pics/yilun.jpg" width="100%" style="margin-bottom: 5px">
+            <a href="https://yilun.scripts.mit.edu/">Yilun Zhou</a><br>
+            PhD Student<br>MIT CSAIL<br>
+            <a href = "mailto:yilun@csail.mit.edu">yilun@csail.mit.edu</a>
+          </div>
+          <div class="col col-2" style="text-align: center">
+          </div>
+          <div class="col col-3" style="text-align: center">
+            <img src="../imgs/profile_pics/julie.jpg" width="100%" style="margin-bottom: 5px">
+            <a href="https://interactive.mit.edu/">Julie Shah</a><br>
+            Professor<br>MIT CSAIL<br>
+            <a href = "mailto:julie_a_shah@csail.mit.edu">julie_a_shah@csail.mit.edu</a>
+          </div>
+          <div class="col col-2" style="text-align: center">
+          </div>
+        </div>
+      </div>
+      <div class="col col-12 mb-5">
+        <div class='row'>
+          <!-- This research is supported by the National Science Foundation (NSF) under the grant IIS-1830282. -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
