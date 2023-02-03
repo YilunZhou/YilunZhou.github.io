@@ -140,6 +140,9 @@
             </center> -->
           </div>
           <div role="tabpanel" class="tab-pane fade" id="nlp_word" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <div class="alert alert-primary" role="alert">
+              Read this tutorial as a Jupyter notebook <a href="https://github.com/YilunZhou/solvability-explainer/blob/master/examples/text_input_word_level_explanation.ipynb">here</a>. 
+            </div>
             <p>In this demo, we compute word-level explanations for the Huggingface <a href="https://huggingface.co/textattack/roberta-base-SST-2"><code>textattack/roberta-base-SST-2</code></a> model, also the setup presented in the paper. </p>
             <p>We first load required packages and the RoBERTa model. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>TextWordMasker</code> since we need to mask out individual words from a text input. The other demos showcase other <code>*Masker</code>s. </p>
             <pre><code>from solvex import BeamSearchExplainer, TextWordMasker
@@ -197,6 +200,9 @@ Word feature attribution:
 
 
           <div role="tabpanel" class="tab-pane fade" id="nlp_sentence" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <div class="alert alert-primary" role="alert">
+              Read this tutorial as a Jupyter notebook <a href="https://github.com/YilunZhou/solvability-explainer/blob/master/examples/text_input_sentence_level_explanation.ipynb">here</a>. 
+            </div>
             <p>In this demo, we compute sentence-level explanations for the Huggingface <a href="https://huggingface.co/textattack/albert-base-v2-yelp-polarity"><code>textattack/albert-base-v2-yelp-polarity</code></a> model, which is designed to perform sentiment analysis on paragraph-long reviews. If you come from the previous "NLP - Word" tutorial on computing word-level explanations (no worries if not), you may have realized that this problem could be solved by manually "sentencizing" the input text and defining each "sentence" as a "word." However, in this demo, we introduce the <code>TextSentenceMasker</code> class which handles this sentencization automatically, using the <code>spacy</code> package. </p>
             <p>We first load required packages and the ALBERT model. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>TextSentenceMasker</code> since we need to mask out individual sentences from a text input. The other demos showcase other <code>*Masker</code>s. </p>
             <pre><code>from solvex import BeamSearchExplainer, TextSentenceMasker
@@ -268,7 +274,11 @@ Sentence feature attribution:
           </div>
           
 
-          <div role="tabpanel" class="tab-pane fade" id="cv_grid" style="border-bottom: 1px solid; border-color: #dee2e6;"><p>In this demo, we compute explanations for the ResNet-50 trained on ImageNet, where we define a grid of superpixels as features to perturb. The image below shows the grid superpixel segmentation. We consider each grid cell as a feature. </p>
+          <div role="tabpanel" class="tab-pane fade" id="cv_grid" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <div class="alert alert-primary" role="alert">
+              Read this tutorial as a Jupyter notebook <a href="https://github.com/YilunZhou/solvability-explainer/blob/master/examples/image_input_grid_superpixel_explanation.ipynb">here</a>. 
+            </div>
+            <p>In this demo, we compute explanations for the ResNet-50 trained on ImageNet, where we define a grid of superpixels as features to perturb. The image below shows the grid superpixel segmentation. We consider each grid cell as a feature. </p>
             <center>
               <img src="/solvability/grid.png" style="max-width: 45%;">
             </center>
@@ -344,6 +354,9 @@ masker.render_result(image, e_cat, mode='color', execute=True)</code></pre>
 
 
           <div role="tabpanel" class="tab-pane fade" id="cv_custom" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <div class="alert alert-primary" role="alert">
+              Read this tutorial as a Jupyter notebook <a href="https://github.com/YilunZhou/solvability-explainer/blob/master/examples/image_input_custom_superpixel_explanation.ipynb">here</a>. 
+            </div>
             <p>In this demo, we compute explanations for the ResNet-50 trained on ImageNet, where we use a custom segmentation mask to define superpixels (similar to the implementation of the LIME explanation). </p>
             <p>We first load required packages, the ResNet model and its preprocessing pipeline. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>ImageSegmentationMasker</code> since we need to mask out individual superpixels from an image input. The other demos showcase other <code>*Masker</code>s. </p>
             <pre><code>from solvex import BeamSearchExplainer, ImageSegmentationMasker
@@ -423,6 +436,9 @@ masker.render_result(image, e_cat, mode='color', execute=True, seg_mask=seg_mask
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="tabular" style="border-bottom: 1px solid; border-color: #dee2e6;">
+            <div class="alert alert-primary" role="alert">
+              Read this tutorial as a Jupyter notebook <a href="https://github.com/YilunZhou/solvability-explainer/blob/master/examples/tabular_data_random_forest.ipynb">here</a>. 
+            </div>
             <p>In this demo, we compute explanations for a random forest classifier trained on the <a href="https://archive.ics.uci.edu/ml/datasets/adult">Adult (aka Census Income) dataset</a>. The dataset contains 14 input variables, and 1 binary target (income >50K or not). Among the 14 input variables, 13 describe demographic information, and one (fnlwgt) is final weight, or "the number of people the census believes the entry represents." Since this feature is not available at when using the model to make individual prediction, we drop it from the dataset. </p>
             <p>We first load required packages. Two classes are needed to compute the explanations. <code>BeamSearchExplainer</code> implements the beam search algorithm, and <code>*Masker</code> implements the feature masking. In this demo, we use <code>TabularMasker</code> for tabular data. The other demos showcase other <code>*Masker</code>s. </p>
             <pre><code>from solvex import BeamSearchExplainer, TabularMasker
