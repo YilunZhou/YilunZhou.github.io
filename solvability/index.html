@@ -455,7 +455,7 @@ def read_data():
             X_data[:, col_idx] = df[col_idx]
     y_data = np.array(df[13].replace({'<=50K': 0, '>50K': 1}))
     return X_data, y_data, mappings</code></pre>
-            <p>This function returns three variables. <code>X_data</code> and <code>y_data</code> are numpy arrays of shape <code>N x D</code> and <code>N</code>, where <code>N</code> is the number of instances, and <code>D = 13</code> is the number of features. <code>mappings</code> is a list of <code>D</code> elements, one for each feature. If the feature is numerical, the element is <code>None</code>. If it is continuous, it is a 2-way dictionary mapping between feature names and category indices. Thus, for <code>M</code> categories, the dictionary has length of <code>2 * M</code>. </p>
+            <p>This function returns three variables. <code>X_data</code> and <code>y_data</code> are <code>numpy</code> arrays of shape <code>N x D</code> and <code>N</code>, where <code>N</code> is the number of instances, and <code>D = 13</code> is the number of features. <code>mappings</code> is a list of <code>D</code> elements, one for each feature. If the feature is numerical, the element is <code>None</code>. If it is continuous, it is a 2-way dictionary mapping between feature names and category indices. Thus, for <code>M</code> categories, the dictionary has length of <code>2 * M</code>. </p>
 
             <p>Since the random forest classifier learns from the one-hot encoding representation, we define a wrapper on the random forest classifier to handle this automatically. </p>
             <pre><code>class RandomForestWrapper():
