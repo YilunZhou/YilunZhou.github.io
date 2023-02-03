@@ -130,14 +130,14 @@
             <p style="text-align: justify; text-justify: inter-word;">
               <b>Abstract:</b> Feature attribution methods are popular for explaining neural network predictions, and they are often evaluated on metrics such as comprehensiveness and sufficiency. In this paper, we highlight an intriguing property of these metrics: their <i>solvability</i>. Concretely, we can define the problem of optimizing an explanation for a metric and solve it using beam search, which leads to the obvious yet unaddressed question: why do we use explainers (e.g., LIME) not based on solving the target metric, if the metric value represents explanation quality? We present a series of investigations showing the strong performance of this beam search explainer and discuss its broader implication: a definition-evaluation duality of interpretability concepts. We implement the explainer and release the Python package <code>solvex</code> for models of text, image and tabular domains. 
             </p>
-            <center>
+            <!-- <center>
               <div class="video-wrap">
                 <div class='video-container'>
                   <iframe src="https://www.youtube.com/embed/kAodFw6jvvo"
                   title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
               </div>
-            </center>
+            </center> -->
           </div>
           <div role="tabpanel" class="tab-pane fade" id="nlp_word" style="border-bottom: 1px solid; border-color: #dee2e6;">
             <p>In this demo, we compute word-level explanations for the Huggingface <a href="https://huggingface.co/textattack/roberta-base-SST-2"><code>textattack/roberta-base-SST-2</code></a> model, also the setup presented in the paper. </p>
