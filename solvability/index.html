@@ -412,8 +412,8 @@ Grid cell feature attribution:
 ...(more rows not shown)...
 </code></pre>
           <p>The second one is color overlay on top of the input image (i.e., the typical saliency map visualization). </p>
-          <pre><code>masker.render_result(image, e_dog, mode='color', execute=True)
-masker.render_result(image, e_cat, mode='color', execute=True)</code></pre>
+          <pre><code>masker.render_result(image, e_dog, mode='color', execute=True, seg_mask=seg_mask)
+masker.render_result(image, e_cat, mode='color', execute=True, seg_mask=seg_mask)</code></pre>
           <p>Each line creates a <code>matplotlib</code> figure, and we show both below (dog on the left, cat on the right). </p>
           <center>
             <img src="/solvability/explanation_dog_segmentation.png" style="max-width: 45%;">
