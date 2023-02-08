@@ -48,7 +48,7 @@ img {
   border-color: #2ca02c;
 }
 
-.paper-card.journal>div.row>div.col.col-9 {
+.paper-card.journal>div.row>div.col-bg {
   background-color: rgba(146, 209, 134, 0.7);
 }
 
@@ -56,7 +56,7 @@ img {
   border-color: #ff7f0e;
 }
 
-.paper-card.conference>div.row>div.col.col-9 {
+.paper-card.conference>div.row>div.col-bg {
   background-color: rgba(255, 179, 120, 0.7);
 }
 
@@ -64,7 +64,7 @@ img {
   border-color: #3e80d6;
 }
 
-.paper-card.workshop>div.row>div.col.col-9 {
+.paper-card.workshop>div.row>div.col-bg {
   background-color: rgba(174, 199, 232, 0.7);
 }
 
@@ -72,7 +72,7 @@ img {
   border-color: #969644;
 }
 
-.paper-card.preprint>div.row>div.col.col-9 {
+.paper-card.preprint>div.row>div.col-bg {
   background-color: rgba(219, 219, 141, 0.7);
 }
 
@@ -80,7 +80,7 @@ img {
   border-color: rgb(148, 103, 189);
 }
 
-.paper-card.other>div.row>div.col.col-9 {
+.paper-card.other>div.row>div.col-bg {
   background-color: rgba(197, 176, 213, 0.7);
 }
 
@@ -88,11 +88,11 @@ img {
   border-color: #7f7f7f;
 }
 
-.paper-card.submission>div.row>div.col.col-9 {
+.paper-card.submission>div.row>div.col-bg {
   background-color: #d7d7d7;
 }
 
-.paper-card>div.row>div.col.col-9 {
+.paper-card>div.row>div.col-bg {
   padding-bottom: 2px;
 }
 
