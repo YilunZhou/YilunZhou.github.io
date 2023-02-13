@@ -300,31 +300,32 @@ preprocess = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])</code></pre>
-            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., pixel grids) from an image, <code>ImageGridMasker</code> expects the image to be a <code>PIL.Image.Image</code> object and returns another such object. Thus, <code>imgs</code> is a list of <code>PIL.Image.Image</code> objects. </p>
+            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., pixel grids) from an image, <code>ImageGridMasker</code> expects the image to be a <code>PIL.Image.Image</code>, a <code>numpy.ndarray</code> or a <code>torch.tensor</code> object and returns another object of the same class. We choose <code>torch.tensor</code> so that preprocess (which is a CPU-intensive operation) is only explicitly applied once. Thus, <code>imgs</code> is a list of <code>torch.tensor</code> objects. </p>
             <pre><code>def model_func(imgs):
-    imgs = torch.stack([preprocess(img) for img in imgs], dim=0).to(device)
+    imgs = torch.stack(imgs, dim=0)
     with torch.no_grad():
         logits = model(imgs)
     probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
     return probs</code></pre>
-            <p>Next we prepare the input image and instantiate the explainer. <code>ImageGridMasker</code> takes two arguments. <code>resolution</code> specifies the grid resolution. In our case, we want a <code>5 x 5</code> grid. It can also be a 2-tuple <code>(r_h, r_w)</code>, for height and width resolutions. <code>fill_value</code> specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the grid cell and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or an <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
+            <p>Next we prepare the input image and instantiate the explainer. <code>ImageGridMasker</code> takes two arguments. <code>resolution</code> specifies the grid resolution. In our case, we want a <code>5 x 5</code> grid. It can also be a 2-tuple <code>(r_h, r_w)</code>, for height and width resolutions. <code>fill_value</code> specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the grid cell and fixed pixel values in the format of an number <code>v</code> or a 3-tuple <code>(r, g, b)</code>. 
               <pre><code># download the image and resize to have shorter side length of 224 pixels
 url = 'https://yilunzhou.github.io/solvability/cat_and_dog.jpg'
 image = Image.open(BytesIO(requests.get(url).content))
 ratio =  224 / min(image.size)
 image = image.resize((np.array(image.size) * ratio).astype('int32'))
+img_pt = preprocess(image).to(device)
 
 masker = ImageGridMasker(resolution=5, fill_value='global_mean')
 explainer = BeamSearchExplainer(masker, f=model_func, beam_size=50, batch_size=50)
 </code></pre>
           <p>Now we are ready to explain! The image shows a dog and a cat, and we are interested in which pixels contribute the most to each label. Since there are multiple ImageNet classes for different dog and cat species, we choose the class with the highest predicted probability for each, which is class 232 (Border collie) for dog (15.9%) and class 285 (Egyptian cat) for cat (1.0%). We specify the target class via the <code>label</code> argument to <code>explain_instance</code>. If it is not provided, the label with the highest function value will be used. </p>
-          <pre><code>e_dog = explainer.explain_instance(image, label=232)  # Border collie
-e_cat = explainer.explain_instance(image, label=285)  # Egyptian cat
+          <pre><code>e_dog = explainer.explain_instance(img_pt, label=232)  # Border collie
+e_cat = explainer.explain_instance(img_pt, label=285)  # Egyptian cat
 </code></pre>
           <p>The explanation <code>e_dog</code>/<code>e_cat</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
           <pre><code>print(e_dog)
 # should show: {'exp': [7.5, 5.5, 13.5, 17.5, 8.5, 6.5, -6.5, -5.5, 10.5, 4.5, -1.5, -4.5, -2.5, 2.5, 11.5, 9.5, 1.5, -0.5, 3.5, 14.5, 12.5, 16.5, 0.5, -3.5, 15.5], 'label': 232, 'func_val': 0.15883905}</code></pre>
-          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>ImageGridMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. The first one is console printing. </p>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>ImageGridMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. Note that the original <code>PIL.Image.Image</code> object image is passed in, needed by the color rendering mode (next one). The first one is console printing. </p>
           <pre><code>masker.render_result(image, e_dog, mode='text', execute=True)</code></pre>
           <p>It prints out the following texts: </p>
           <pre><code>Explained label: 232
@@ -377,14 +378,14 @@ preprocess = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])</code></pre>
-            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., superpixels) from an image, <code>ImageSegmentationMasker</code> expects the image to be a <code>PIL.Image.Image</code> object and returns another such object. Thus, <code>imgs</code> is a list of <code>PIL.Image.Image</code> objects. </p>
+            <p>The explainer expects the function to be explained in a particular format. Specifically, it takes in a list of <code>N</code> (full or masked) inputs, and returns a <code>numpy</code> array of shape <code>N x C</code> where <code>C</code> is the number of classes. The values of the array can be anything, but most commonly the class probability, which is what we are going to do here. In addition, when masking features (i.e., superpixels) from an image, <code>ImageSegmentationMasker</code> expects the image to be a <code>PIL.Image.Image</code>, a <code>numpy.ndarray</code> or a <code>torch.tensor</code> object and returns another object of the same class. We choose <code>torch.tensor</code> so that preprocess (which is a CPU-intensive operation) is only explicitly applied once. Thus, <code>imgs</code> is a list of <code>torch.tensor</code> objects. </p>
             <pre><code>def model_func(imgs):
-    imgs = torch.stack([preprocess(img) for img in imgs], dim=0).to(device)
+    imgs = torch.stack(imgs, dim=0).to(device)
     with torch.no_grad():
         logits = model(imgs)
     probs = torch.nn.functional.softmax(logits, dim=-1).cpu().numpy()
     return probs</code></pre>
-            <p>Next we prepare the input image and instantiate the explainer. <code>ImageSegmentationMasker</code> takes an argument <code>fill_value</code> that specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the superpixel and fixed pixel values in the format of an <code>uint8</code> number <code>v</code> or an <code>uint8</code> 3-tuple <code>(r, g, b)</code>. 
+            <p>Next we prepare the input image and instantiate the explainer. <code>ImageSegmentationMasker</code> takes an argument <code>fill_value</code> that specifies the masking operation. In this case, we replace the pixel value with the average pixel value of the entire image. Other options include <code>'local_mean'</code> of the superpixel and fixed pixel values in the format of a number <code>v</code> or a 3-tuple <code>(r, g, b)</code>. 
               <pre><code># download the image and resize to have shorter side length of 224 pixels
 url = 'https://yilunzhou.github.io/solvability/cat_and_dog.jpg'
 image = Image.open(BytesIO(requests.get(url).content))
@@ -407,7 +408,7 @@ e_cat = explainer.explain_instance(image, label=285, seg_mask=seg_mask)  # Egypt
           <p>The explanation <code>e_dog</code>/<code>e_cat</code> we get is a dictionary of keys <code>'exp'</code>, <code>'label'</code> and <code>'func_val'</code>, of type <code>list</code>, <code>int</code> and <code>float</code> respectively, as printed out below. </p>
           <pre><code>print(e_dog)
 # should show: {'exp': [13.5, 6.5, 21.5, 19.5, 14.5, 25.5, -1.5, 24.5, 18.5, 1.5, 4.5, -2.5, 20.5, 3.5, 12.5, 9.5, 22.5, -0.5, 2.5, 17.5, 0.5, 23.5, 11.5, 8.5, 10.5, 15.5, 16.5, 7.5, 5.5], 'label': 232, 'func_val': 0.15883905}</code></pre>
-          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>ImageSegmentationMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. The first one is console printing. </p>
+          <p>Even better, all built-in <code>*Masker</code> classes include more user-friendly explanation displays, and the <code>ImageSegmentationMasker</code> class has two. They can be called with <code>masker.render_result</code>, using different <code>mode</code> parameters. Note that the original <code>PIL.Image.Image</code> object image is passed in, needed by the color rendering mode (next one). The first one is console printing. </p>
           <pre><code>masker.render_result(image, e_dog, mode='text', execute=True)</code></pre>
           <p>It prints out the following texts: </p>
           <pre><code>Explained label: 232
@@ -469,7 +470,7 @@ def read_data():
             X_data[:, col_idx] = df[col_idx]
     y_data = np.array(df[13].replace({'<=50K': 0, '>50K': 1}))
     return X_data, y_data, mappings</code></pre>
-            <p>This function returns three variables. <code>X_data</code> and <code>y_data</code> are <code>numpy</code> arrays of shape <code>N x D</code> and <code>N</code>, where <code>N</code> is the number of instances, and <code>D = 13</code> is the number of features. <code>mappings</code> is a list of <code>D</code> elements, one for each feature. If the feature is numerical, the element is <code>None</code>. If it is continuous, it is a 2-way dictionary mapping between feature names and category indices. Thus, for <code>M</code> categories, the dictionary has length of <code>2 * M</code>. </p>
+            <p>This function returns three variables. <code>X_data</code> and <code>y_data</code> are <code>numpy</code> arrays of shape <code>N x D</code> and <code>N</code>, where <code>N</code> is the number of instances, and <code>D = 13</code> is the number of features. <code>mappings</code> is a list of <code>D</code> elements, one for each feature. If the feature is numerical, the element is <code>None</code>. If it is categorical, it is a 2-way dictionary mapping between feature names and category indices. Thus, for <code>M</code> categories, the dictionary has length of <code>2 * M</code>. </p>
 
             <p>Since the random forest classifier learns from the one-hot encoding representation, we define a wrapper on the random forest classifier to handle this automatically. </p>
             <pre><code>class RandomForestWrapper():
