@@ -40,8 +40,8 @@ img {
 }
 
 .paper-card {
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 7px;
+/*  margin-bottom: 10px;*/
 }
 
 .paper-card.journal {
@@ -96,9 +96,64 @@ img {
   padding-bottom: 2px;
 }
 
-.paper-card.highlight {
+./*paper-card.highlight>div.row>div.col-bg {
   border-style: dashed;
   border-width: 2px;
   padding: 6px;
   border-radius: 8px;
+}*/
+
+.corner-ribbon {
+    position: relative;
+}
+
+.ribbon {
+    /* Displayed at the top left corner */
+    right: 0px;
+    position: absolute;
+    top: 0px;
+
+    /* Size */
+    height: 4rem;
+    width: 4rem;
+
+    /* Hide the part of its children which is displayed outside */
+    overflow: hidden;
+}
+
+.ribbon_inner {
+    /* Position */
+    right: 0rem;
+    position: absolute;
+    top: 1.9rem;
+
+    /* Size */
+    height: 2.2rem;
+    width: 6rem;
+
+    /* Displayed diagonally */
+    transform-origin: center;
+    transform: rotate(45deg) translate(0px, -52px);
+
+    /* Background color */
+    background-color: #d1193e;
+
+    /* Centerize the text content */
+    text-align: center;
+    padding-top: 5px;
+
+}
+
+.ribbon_inner span {
+  /*left: -25px;
+  top: 30px;*/
+  font-size: 20px;
+  color: #ffe169;
+  transform: rotate(45deg);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
