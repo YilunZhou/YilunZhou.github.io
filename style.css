@@ -125,18 +125,19 @@ img {
     /* Position */
     right: 0rem;
     position: absolute;
-    top: 1.9rem;
+    top: 2.05rem;
 
     /* Size */
-    height: 2.2rem;
+    height: 1.8rem;
     width: 6rem;
 
     /* Displayed diagonally */
     transform-origin: center;
-    transform: rotate(45deg) translate(0px, -52px);
+    transform: rotate(45deg) translate(0px, -55px);
 
     /* Background color */
     background-color: #d1193e;
+    /*background-color: rgba(128, 128, 128, 0.5);*/
 
     /* Centerize the text content */
     text-align: center;
@@ -147,7 +148,7 @@ img {
 .ribbon_inner span {
   /*left: -25px;
   top: 30px;*/
-  font-size: 20px;
+  font-size: 15px;
   color: #ffe169;
   transform: rotate(45deg);
   -webkit-touch-callout: none;
@@ -156,4 +157,5 @@ img {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding-bottom: 10em;
 }
