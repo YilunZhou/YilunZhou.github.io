@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <title>Feature Attribution Evaluation</title>
+
+    <style>
+      /* Set your aspect ratio */
+      .video-container {
+      position: relative;
+      overflow: hidden;
+      height: 0;
+      padding-bottom: 56.25%; /* creates a 16:9 aspect ratio */
+      text-align: center;
+      width: 800px;
+      max-width: 100%;
+      margin: 0 auto;
+      }
+
+      .video-container iframe{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      }
+
+      /* And set the max-width of the parent element */
+      .video-wrap {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="text-align: center; margin-bottom: 5px; margin-top: 30px;">Do Feature Attribution Methods Correctly Attribute Features?</h2>
+    <h5 style="text-align: center; margin-bottom: 5px; margin-top: 20px;">
+      <a href="https://yilunzhou.github.io/">Yilun Zhou</a>,
+      <a href="http://cmxiong.com/">Caiming Xiong</a>,
+      <a href="https://www.linkedin.com/in/silvio-savarese-97b76114">Silvio Savarese</a>,
+      <a href="https://jasonwu0731.github.io/">Chien-Sheng Wu</a>
+    </h5>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      Salesforce Research
+    </h6>
+    <h6 style="text-align: center; margin-bottom: 5px; margin-top: 10px;">
+      [<a href="https://arxiv.org/pdf/2407.16604.pdf">Full Paper</a>] &nbsp;&nbsp;
+    </h6>
+
+    <div class="container">
+
+      <div class='col col-12'>
+        <p style="text-align: justify; text-justify: inter-word;">
+          <b>TLDR:</b> We demonstrate a "shared imagination" phenomenon among many LLMs, which suggests fundamental commonality among them. 
+        </p>
+        <p style="text-align: justify; text-justify: inter-word;">
+          <b>Abstract:</b> Despite the recent proliferation of large language models (LLMs), their training recipes -- model architecture, pre-training data and optimization algorithm -- are often very similar. This naturally raises the question of the similarity among the resulting models. In this paper, we propose a novel setting, imaginary question answering (IQA), to better understand model similarity. In IQA, we ask one model to generate purely imaginary questions (e.g., on completely made-up concepts in physics) and prompt another model to answer. Surprisingly, despite the total fictionality of these questions, all models can answer each other's questions with remarkable success, suggesting a "shared imagination space" in which these models operate during such hallucinations. We conduct a series of investigations into this phenomenon and discuss implications on model homogeneity, hallucination, and computational creativity.
+        </p>
+
+        <p style="text-align: justify; text-justify: inter-word;">
+          <i>(Additional materials will be available soon. For any questions, please contact Yilun Zhou at <a href='mailto:yilun.zhou@salesforce.com'>yilun.zhou@salesforce.com</a>)</i> 
+        </p>
+
+      </div>
+
+      <div class='col col-12'>
+        <div class="card bg-light">
+          <div class="card-body" style='padding: 10px; font-size: 12pt; font-family: monospace;'>
+            @article{zhou2022feature,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;title = {Shared Imagination: LLMs Hallucinate Alike},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;author = {Zhou, Yilun and Xiong, Caiming and Savarese, Silvio and Wu, Chien-Sheng},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;journal={arXiv preprint arXiv:2407.16604},<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;year = {2024},<br>
+            }
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
