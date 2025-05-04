@@ -1,430 +1,791 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <script src="jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <link rel='stylesheet' href='style.css'>
-
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Yilun Zhou</title>
+    <link rel="icon" type="image/jpeg" href="imgs/favicon.jpg">
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet"> 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <style>
+      :root {
+        --bg-color: #FFFFFF;
+        --text-color: #000000;
+        --link-color: #0366d6;
+        --selected-bg: #fffde7;
+      }
+
+      [data-theme="dark"] {
+        --bg-color: #2d2d2d;
+        --text-color: #e0e0e0;
+        --link-color: #58a6ff;
+        --selected-bg: #3d3d1a;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      a {
+        color: var(--link-color);
+      }
+
+      h1, h2, strong {
+        color: var(--text-color);
+      }
+
+      h1 a {
+        color: var(--text-color);
+      }
+
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--text-color);
+        background: var(--bg-color);
+        color: var(--text-color);
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s;
+      }
+
+      .theme-toggle:hover {
+        opacity: 0.8;
+      }
+
+      .highlighted {
+        background-color: var(--selected-bg);
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+    </style>
   </head>
 
   <body>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+    <div class="wrapper">
+      <header>        
+        <!---->
+        <center><img src="imgs/yilun.jpg" alt="Yilun Zhou" /></center>
+        <!---->
+        <h1 style="text-align:center; margin-top: 20px;">Yilun Zhou</h1>
 
-    <div class="container" style='margin-top: 40px!important;'>
+        <p style="text-align:center;">Senior Research Scientist<br>Salesforce AI Research</p>
+        <p style="text-align:center;"><a href="mailto:yilun@csail.mit.edu">Email</a> | <a href="https://x.com/YilunZhou">Twitter</a> | <a href="https://scholar.google.com/citations?user=3DGRp2oAAAAJ&hl=en">Google Scholar</a> | <a href="cv.pdf">CV</a></p>
+        
 
-      <div class='row'>
-        <div class='col col-3'>
-          <center>
-            <h2>Yilun Zhou</h2>
-          </center>
-          <div class="image-cropper" style='margin-top: 10px;'>
-            <img src="imgs/yilun.jpg" class="rounded" />
-          </div>
-        </div>
-        <div class='col col-9'>
-          <p style="text-align: justify; text-justify: inter-word;">
-            I currently work at Salesforce as a research scientist. Before that, I worked at Amazon as an applied scientist. I received my Ph.D. degree at MIT Department of Electrical Engineering and Computer Science (EECS), advised by Prof. Julie Shah, from which I also received my Master of Science degree in 2019. I received my Bachelor of Science in Engineering degree from Duke University, with double major in Computer Sciene and Electrical &amp; Computer Engineering. I worked with Prof. George Konidaris and Prof. Kris Hauser on my undergraduate research on robotics. 
-          </p>
-          <p style="text-align: justify; text-justify: inter-word;">
-            My long-term research goal is to enable trustworthy and responsible machine learning. These days, I am interested in anything related to interpretability and/or large language models (LLMs). My recent research explores LLM-generated free-text self-explanations, their mathematical reasoning abilities, as well as evaluations, utilities and societal implications of model explanations in general. 
-          </p>
-          [<a href='mailto:yilun@mit.edu'>Email: yilun@csail.mit.edu</a>] [<a href='cv.pdf'>CV (PDF)</a>] [<a href='https://scholar.google.com/citations?user=3DGRp2oAAAAJ&hl=en'>Google Scholar</a>] [<a href='https://www.youtube.com/channel/UC_MQBFX8lx_-p14wnKlBWKQ'>YouTube (paper summary videos)</a>]
-        </div>
-      </div>
+      </header>
+      <section align="justify">
+        <p>I currently work at Salesforce as a research scientist. Before that, I worked at Amazon as an applied scientist. I received my Ph.D. degree at MIT Department of Electrical Engineering and Computer Science (EECS), advised by Prof. Julie Shah, from which I also received my Master of Science degree in 2019. I received my Bachelor of Science in Engineering degree from Duke University, with double major in Computer Sciene and Electrical & Computer Engineering. I worked with Prof. George Konidaris and Prof. Kris Hauser on my undergraduate research on robotics.</p>
 
+        <p>My long-term research goal is to make machine learning models and systems reliable and responsible. These days, I am mainly working on three particular directions: </p>
+          <ul>
+            <li>LLM reasoning, especially around LLM-as-judges, [<a href="#" onclick="toggleCategory('reasoning', 'Reasoning'); return false;">Show Only</a>]</li>
+            <li>(Mechanistic) interpretability of LLM, [<a href="#" onclick="toggleCategory('interpretability', 'Interpretability'); return false;">Show Only</a>]</li>
+            <li>Trustworthy and societal implications for LLMs. [<a href="#" onclick="toggleCategory('trustworthiness', 'Trustworthiness'); return false;">Show Only</a>]</li>
+          </ul>
 
-      <div class='row mt-3'>
-        <div class='col col-12'>
-          <h3>Publications</h3>
-          <p>
-            <sup>* </sup>Equal Contribution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style='color: #ffe169; background-color: #d1193e; padding-left: 4px; padding-right: 4px; padding: 2px;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;'>&starf;</span> Recent Highlight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style='background-color: rgba(146, 209, 134, 0.7); padding: 2px;
-                         padding-left: 4px;
-                         padding-right: 4px;'>Journal</span>&nbsp;&nbsp;&nbsp; 
-            <span style='background-color: rgba(255, 179, 120, 0.7); padding: 2px;
-                         padding-left: 4px;
-                         padding-right: 4px;'>Conference</span>&nbsp;&nbsp;&nbsp;
-            <span style='background-color: rgba(174, 199, 232, 0.7); padding: 2px;
-                         padding-left: 4px;
-                         padding-right: 4px;'>Workshop</span>&nbsp;&nbsp;&nbsp;
-            <span style='background-color: rgba(219, 219, 141, 0.7); padding: 2px;
-                         padding-left: 4px;
-                         padding-right: 4px;'>Preprint</span>&nbsp;&nbsp;&nbsp;
-            <span style='background-color: rgba(197, 176, 213, 0.7); padding: 2px;
-                         padding-left: 4px;
-                         padding-right: 4px;'>Other</span>&nbsp;&nbsp;&nbsp;
-          </p>
+        <h2 style="margin-top: 20px;">Publications <span id="showHighlighted" style="font-size: 14px; font-weight: normal;">[<a href="#" onclick="toggleHighlighted(); return false;">Show Highlighted</a>]</span></h2>
+        <p><sup>*</sup> Equal Contribution</p>
 
-          <div class='paper-card other'>
-            <div class='row'>
-              <div class='col col-bg col-12'>
-                <b>AAAI 2023 Tutorial</b>: Trustworthy and Responsible AI: Fairness, Interpretability, Transparency and Their Interactions [<a href='aaai2023tutorial/'>Website</a>]
-              </div>
-            </div>
-          </div>
+        <ul id="publications">
+          <li style="margin-bottom: 10px;" class="highlighted reasoning">
+            <span class='title'>
+              <strong>Evaluating Judges as Evaluators: The JETTS Benchmark of LLM-as-Judges as Test-Time Scaling Evaluators</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong><sup>*</sup>, Austin Xu<sup>*</sup>, Peifeng Wang, Caiming Xiong, Shafiq Joty
+            </span>
+            <br />
+            <span class='conference'>
+              <i>International Conference on Machine Learning (ICML)</i>, 2025
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2504.15253.pdf">Paper</a>] [<a href="https://github.com/salesforceairesearch/jetts-benchmark">Code</a>]
+          </li>
 
-          <div class='paper-card preprint highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/shared-imagination.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Shared Imagination: LLMs Hallucinate Alike<br>
-                <b>Yilun Zhou</b>, Caiming Xiong, Silvio Savarese, Chien-Sheng Wu<br>
-                <i>arXiv preprint: 2407.16604</i>, 2024<br>
-                [<a href='https://arxiv.org/pdf/2407.16604.pdf'>Paper</a>] [<a href='shared-imagination/'>Website</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="trustworthiness">
+            <span class='title'>
+              <strong>Search Engines in the AI Era: A Qualitative Understanding to the False Promise of Factual and Verifiable Source-Cited Responses in LLM-based Search</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Pranav Narayanan Venkit, Philippe Laban, <strong>Yilun Zhou</strong>, Yixin Mao, Chien-Sheng Wu
+            </span>
+            <br />
+            <span class='conference'>
+              <i>ACM Conference on Fairness, Accountability, and Transparency (FAccT)</i>, 2025
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2410.22349">Paper</a>]
+          </li>
 
-          <div class='paper-card preprint'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/mi_survey.png">
-              </div>
-              <div class='col col-bg col-9'>
-                A Practical Review of Mechanistic Interpretability for Transformer-Based Language Models<br>
-                Daking Rai, <b>Yilun Zhou</b>, Shi Feng, Abulhair Saparov, Ziyu Yao<br>
-                <i>arXiv preprint: 2407.02646</i>, 2024<br>
-                [<a href='https://arxiv.org/pdf/2407.02646.pdf'>Paper</a>] [<a href='https://github.com/Dakingrai/awesome-mechanistic-interpretability-lm-papers'>Website</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="trustworthiness">
+            <span class='title'>
+              <strong>BingoGuard: LLM Content Moderation Tools with Risk Levels</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Fan Yin, Philippe Laban, Xiangyu Peng, <strong>Yilun Zhou</strong>, Yixin Mao, Vaibhav Vats, Linnea Ross, Divyansh Agarwal, Caiming Xiong, Chien-Sheng Wu
+            </span>
+            <br />
+            <span class='conference'>
+              <i>International Conference on Learning Representations (ICLR)</i>, 2025
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2503.06550">Paper</a>]
+          </li>
 
-          <div class='paper-card conference highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/champ.png">
-              </div>
-              <div class='col col-bg col-9'>
-                CHAMP: A Competition-level Dataset for Fine-Grained Analyses of LLMs' Mathematical Reasoning Capabilities<br>
-                Yujun Mao, Yoon Kim, <b>Yilun Zhou</b><br>
-                <i>Annual Meeting of the Association for Computational Linguistics (ACL) Findings</i>, 2024<br>
-                <a href='pdf/neuripsworkshop2023champ.pdf'>Preliminary version</a> in <i>NeurIPS 2023 Workshop on Mathematical Reasoning and AI (MATH-AI)</i><br>
-                [<a href='https://arxiv.org/pdf/2401.06961.pdf'>Paper</a>] [<a href='https://github.com/YilunZhou/champ-dataset'>Code</a>] [<a href='https://yujunmao1.github.io/CHAMP/'>Website</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="reasoning">
+            <span class='title'>
+              <strong>Direct Judgement Preference Optimization</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Peifeng Wang<sup>*</sup>, Austin Xu<sup>*</sup>, <strong>Yilun Zhou</strong>, Caiming Xiong, Shafiq Joty
+            </span>
+            <br />
+            <span class='conference'>
+              <i>arXiv preprint: 2409.14664</i>, 2024
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2409.14664">Paper</a>]
+          </li>
 
-          <div class='paper-card workshop'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/interpretability_user_study.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Evaluating the Utility of Model Explanations for Model Development<br>
-                Shawn Im, Jacob Andreas, <b>Yilun Zhou</b><br>
-                <i>NeurIPS Workshop on Attributing Model Behavior at Scale (ATTRIB)</i>, 2023<br>
-                [<a href='https://arxiv.org/pdf/2312.06032.pdf'>Paper</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted trustworthiness">
+            <span class='title'>
+              <strong>Shared Imagination: LLMs Hallucinate Alike</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Caiming Xiong, Silvio Savarese, Chien-Sheng Wu
+            </span>
+            <br />
+            <span class='conference'>
+              <i>arXiv preprint: 2407.16604</i>, 2024
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2407.16604.pdf">Paper</a>] [<a href="shared-imagination/">Website</a>]
+          </li>
 
-          <div class='paper-card preprint highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/llm_explanation.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Can Large Language Models Explain Themselves? A Study of LLM-Generated Self-Explanations<br>
-                Shiyuan Huang, Siddarth Mamidanna, Shreedhar Jangam, <b>Yilun Zhou</b>, Leilani H. Gilpin<br>
-                <i>arXiv preprint: 2310.11207</i>, 2023<br>
-                [<a href='https://arxiv.org/pdf/2310.11207.pdf'>Paper</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>MobileAIBench: Benchmarking LLMs and LMMs for On-Device Use Cases</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Rithesh Murthy<sup>*</sup>, Liangwei Yang<sup>*</sup>, Juntao Tan<sup>*</sup>, Tulika Manoj Awalgaonkar<sup>*</sup>, <strong>Yilun Zhou</strong>, Shelby Heinecke, Sachin Desai, Jason Wu, Ran Xu, Sarah Tan, Jianguo Zhang, Zhiwei Liu, Shirley Kokane, Zuxin Liu, Ming Zhu, Huan Wang, Caiming Xiong, Silvio Savarese
+            </span>
+            <br />
+            <span class='conference'>
+              <i>arXiv preprint: 2406.10290</i>, 2024
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2406.10290">Paper</a>]
+          </li>
 
-          <div class='paper-card conference highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/ipf.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Iterative Partial Fulfillment of Counterfactual Explanations: Benefits and Risks<br>
-                <b>Yilun Zhou</b><br>
-                <i>AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society (AIES)</i>, 2023<br>
-                [<a href='https://arxiv.org/pdf/2303.11111.pdf'>Paper</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted interpretability">
+            <span class='title'>
+              <strong>A Practical Review of Mechanistic Interpretability for Transformer-Based Language Models</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Daking Rai, <strong>Yilun Zhou</strong>, Shi Feng, Abulhair Saparov, Ziyu Yao
+            </span>
+            <br />
+            <span class='conference'>
+              <i>arXiv preprint: 2407.02646</i>, 2024
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2407.02646.pdf">Paper</a>] [<a href="https://github.com/Dakingrai/awesome-mechanistic-interpretability-lm-papers">Website</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/sql_parsing.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques<br>
-                Daking Rai, Bailin Wang, <b>Yilun Zhou</b>, Ziyu Yao<br>
-                <i>Annual Meeting of the Association for Computational Linguistics (ACL)</i>, 2023<br>
-                [<a href='https://arxiv.org/pdf/2305.17378.pdf'>Paper</a>] [<a href="https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques">Code</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted reasoning">
+            <span class='title'>
+              <strong>CHAMP: A Competition-Level Dataset for Fine-Grained Analyses of LLMs' Mathematical Reasoning Capabilities</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Yujun Mao, Yoon Kim, <strong>Yilun Zhou</strong>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Annual Meeting of the Association for Computational Linguistics (ACL) Findings</i>, 2024
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Preliminary version in NeurIPS 2023 Workshop on Mathematical Reasoning and AI (MATH-AI)</i>
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2401.06961.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/champ-dataset">Code</a>] [<a href="https://yujunmao1.github.io/CHAMP/">Website</a>]
+          </li>
 
-          <div class='paper-card other highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/mit.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Techniques for Interpretability and Transparency of Black-Box Models<br>
-                <b>Yilun Zhou</b><br>
-                <i>MIT Ph.D. Thesis</i>, 2023<br>
-                [<a href='pdf/thesis.pdf'>Thesis</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="interpretability">
+            <span class='title'>
+              <strong>Evaluating the Utility of Model Explanations for Model Development</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Shawn Im, Jacob Andreas, <strong>Yilun Zhou</strong>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>NeurIPS Workshop on Attributing Model Behavior at Scale (ATTRIB)</i>, 2023
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2312.06032.pdf">Paper</a>]
+          </li>
 
-          <div class='paper-card conference highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/solvability.png">
-              </div>
-              <div class='col col-bg col-9'>
-                The Solvability of Interpretability Evaluation Metrics<br>
-                <b>Yilun Zhou</b>, Julie Shah<br>
-                <i>Conference of the European Chapter of the Association for Computational Linguistics (EACL) Findings</i>, 2023<br>
-                [<a href='https://arxiv.org/pdf/2205.08696.pdf'>Paper</a>] [<a href='https://github.com/YilunZhou/solvability-explainer'>Code</a>]  [<a href='solvability/'>Website</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted interpretability">
+            <span class='title'>
+              <strong>Can Large Language Models Explain Themselves? A Study of LLM-Generated Self-Explanations</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Shiyuan Huang, Siddarth Mamidanna, Shreedhar Jangam, <strong>Yilun Zhou</strong>, Leilani H. Gilpin
+            </span>
+            <br />
+            <span class='conference'>
+              <i>arXiv preprint: 2310.11207</i>, 2023
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2310.11207.pdf">Paper</a>]
+          </li>
 
-          <div class='paper-card workshop'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/explain_llm.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Explaining Large Language Model-Based Neural Semantic Parsers<br>
-                Daking Rai, <b>Yilun Zhou</b>, Bailin Wang, Ziyu Yao<br>
-                <i>AAAI Conference on Artificial Intelligence: Student Abstract and Poster Program</i>, 2023<br>
-                [<a href='https://arxiv.org/pdf/2301.13820.pdf'>Paper</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted trustworthiness interpretability">
+            <span class='title'>
+              <strong>Iterative Partial Fulfillment of Counterfactual Explanations: Benefits and Risks</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society (AIES)</i>, 2023
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2303.11111.pdf">Paper</a>]
+          </li>
 
-          <div class='paper-card conference highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/exsum.svg">
-              </div>
-              <div class='col col-bg col-9'>
-                ExSum: From Local Explanations to Model Understanding<br>
-                <b>Yilun Zhou</b>, Marco Tulio Ribeiro, Julie Shah<br>
-                <i>Conference of the North American Chapter of the Association for Computational Linguistics - Human Language Technologies (NAACL-HLT)</i>, 2022<br>
-                [<a href='https://arxiv.org/pdf/2205.00130.pdf'>Paper</a>] [<a href='https://github.com/YilunZhou/ExSum'>Code</a>] [<a href="https://www.youtube.com/watch?v=jK2CJL7emWs">Video</a>] [<a href='https://yilunzhou.github.io/exsum/'>Website</a>] [<a href="https://news.mit.edu/2022/machine-learning-explainability-0505">MIT News</a> (<a href="imgs/exsum_homepage.png">Featured on 5/5/2022 MIT Homepage</a>)]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Daking Rai, Bailin Wang, <strong>Yilun Zhou</strong>, Ziyu Yao
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Annual Meeting of the Association for Computational Linguistics (ACL)</i>, 2023
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2305.17378.pdf">Paper</a>] [<a href="https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques">Code</a>]
+          </li>
 
-          <div class='paper-card conference highlight'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/feature_attribution.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Do Feature Attribution Methods Correctly Attribute Features?<br>
-                <b>Yilun Zhou</b>, Serena Booth, Marco Tulio Ribeiro, Julie Shah<br>
-                <i>AAAI Conference on Artificial Intelligence (AAAI)</i>, 2022<br>
-                <a href='pdf/xaiworkshop2021feature.pdf'>Preliminary version</a> in <i>NeurIPS 2021 Workshop on Explainable AI Approaches for Debugging and Diagnosis</i><br>
-                [<a href='https://arxiv.org/pdf/2104.14403.pdf'>Paper</a>] [<a href='pdf/aaai2022feature_poster.pdf'>Poster</a>] [<a href='https://github.com/YilunZhou/feature-attribution-evaluation'>Code</a>] [<a href='https://www.youtube.com/watch?v=kAodFw6jvvo'>Video</a>] [<a href='https://yilunzhou.github.io/feature-attribution-evaluation/'>Website</a>] [<a href='https://news.mit.edu/2022/test-machine-learning-models-work-0118'>MIT News</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="interpretability">
+            <span class='title'>
+              <strong>Techniques for Interpretability and Transparency of Black-Box Models</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>MIT Ph.D. Thesis</i>, 2023
+            </span>
+            <br />
+            [<a href="pdf/thesis.pdf">Thesis</a>]
+          </li>
 
-          <div class='paper-card workshop'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/irrationality.png">
-              </div>
-              <div class='col col-bg col-9'>
-                The Irrationality of Neural Rationale Models<br>
-                Yiming Zheng, Serena Booth, Julie Shah, <b>Yilun Zhou</b><br>
-                <i>NAACL Workshop on Trustworthy Natural Language Processing (TrustNLP)</i>, 2022<br>
-                [<a href='https://arxiv.org/pdf/2110.07550.pdf'>Paper</a>] [<a href="pdf/naaclworkshop2022rationale_poster.pdf">Poster</a>] [<a href='https://github.com/yimingz89/Neural-Rationale-Analysis'>Code</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted interpretability">
+            <span class='title'>
+              <strong>The Solvability of Interpretability Evaluation Metrics</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Conference of the European Chapter of the Association for Computational Linguistics (EACL) Findings</i>, 2023
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2205.08696.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/solvability-explainer">Code</a>] [<a href="solvability/">Website</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/fair-mdp.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Long-Term Resource Allocation Fairness in Average Markov Decision Process (AMDP) Environment<br>
-                Ganesh Ghalme<sup>*</sup>, Vineet Nair<sup>*</sup>, Vishakha Patil<sup>*</sup>, <b>Yilun Zhou</b><sup>*</sup><br>
-                <i>International Conference on Autonomous Agents and Multi-Agent Systems (AAMAS)</i>, 2022<br>
-                [<a href='https://arxiv.org/pdf/2102.07120.pdf'>Paper</a>] [<a href='https://github.com/YilunZhou/fair-average-mdp'>Code</a>] [<a href='https://yilunzhou.github.io/fair-average-mdp/'>Website</a>]
-              </div>
-            </div>
-          </div>
-          
-          <div class='paper-card journal'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/latent_alignment.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Latent Space Alignment Using Adversarially Guided Self-Play<br>
-                Mycal Tucker, <b>Yilun Zhou</b>, Julie Shah<br>
-                <i>International Journal of Human-Computer Interaction (IJHCI)</i>, 2022<br>
-                [<a href="pdf/ijhci2022alignment.pdf">Paper</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="interpretability">
+            <span class='title'>
+              <strong>Explaining Large Language Model-Based Neural Semantic Parsers</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Daking Rai, <strong>Yilun Zhou</strong>, Bailin Wang, Ziyu Yao
+            </span>
+            <br />
+            <span class='conference'>
+              <i>AAAI Conference on Artificial Intelligence: Student Abstract and Poster Program</i>, 2023
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2301.13820.pdf">Paper</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/rocus.png">
-              </div>
-              <div class='col col-bg col-9'>
-                RoCUS: Robot Controller Understanding via Sampling<br>
-                <b>Yilun Zhou</b>, Serena Booth, Nadia Figueroa, Julie Shah<br>
-                <i>Conference on Robot Learning (CoRL)</i>, 2021<br>
-                [<a href="https://arxiv.org/pdf/2012.13615.pdf">Paper</a>] [<a href='https://yilunzhou.github.io/RoCUS/poster.pdf'>Poster</a>] [<a href="https://github.com/YilunZhou/RoCUS">Code</a>] [<a href="https://www.youtube.com/watch?v=IZigHZ4Gvf4">Video</a>] [<a href='https://yilunzhou.github.io/RoCUS/'>Website</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted interpretability">
+            <span class='title'>
+              <strong>ExSum: From Local Explanations to Model Understanding</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Marco Tulio Ribeiro, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Conference of the North American Chapter of the Association for Computational Linguistics - Human Language Technologies (NAACL-HLT)</i>, 2022
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2205.00130.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/ExSum">Code</a>] [<a href="https://www.youtube.com/watch?v=jK2CJL7emWs">Video</a>] [<a href="https://yilunzhou.github.io/exsum/">Website</a>] [<a href="https://news.mit.edu/2022/machine-learning-explainability-0505">MIT News</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/bayes-trex.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Bayes-TrEx: a Bayesian Sampling Approach to Model Transparency by Example<br>
-                Serena Booth<sup>*</sup>, <b>Yilun Zhou</b><sup>*</sup>, Ankit Shah, Julie Shah<br>
-                <i>AAAI Conference on Artificial Intelligence (AAAI)</i>, 2021<br>
-                <a href='https://arxiv.org/pdf/2001.03076.pdf'>Preliminary version</a> in <i>AAAI 2020 Workshop on Statistical Relational AI</i><br>
-                [<a href="https://arxiv.org/pdf/2002.10248.pdf">Paper</a>] [<a href="pdf/aaai2021bayestrex_poster.pdf">Poster</a>] [<a href="https://github.com/serenabooth/Bayes-TrEx">Code</a>] [<a href='https://news.mit.edu/2021/more-transparency-understanding-machine-behaviors-bayes-trex-0322'>MIT News</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="interpretability">
+            <span class='title'>
+              <strong>The Irrationality of Neural Rationale Models</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Yiming Zheng, Serena Booth, Julie Shah, <strong>Yilun Zhou</strong>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>NAACL Workshop on Trustworthy Natural Language Processing (TrustNLP)</i>, 2022
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2110.07550.pdf">Paper</a>] [<a href="pdf/naaclworkshop2022rationale_poster.pdf">Poster</a>] [<a href="https://github.com/yimingz89/Neural-Rationale-Analysis">Code</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/optimal-al.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Towards Understanding the Behaviors of Optimal Deep Active Learning Algorithms<br>
-                <b>Yilun Zhou</b>, Adithya Renduchintala, Xian Li, Sida Wang, Yashar Mehdad, Asish Ghoshal<br>
-                <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2021<br>
-                [<a href="https://arxiv.org/pdf/2101.00977.pdf">Paper</a>] [<a href="pdf/aistats2021optimal_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/optimal-active-learning">Code</a>] [<a href="https://www.youtube.com/watch?v=McBC7H3BJFM">Video</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;" class="highlighted interpretability">
+            <span class='title'>
+              <strong>Do Feature Attribution Methods Correctly Attribute Features?</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Serena Booth, Marco Tulio Ribeiro, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>AAAI Conference on Artificial Intelligence (AAAI)</i>, 2022
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Preliminary version in NeurIPS 2021 Workshop on Explainable AI Approaches for Debugging and Diagnosis</i>
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2104.14403.pdf">Paper</a>] [<a href="pdf/aaai2022feature_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/feature-attribution-evaluation">Code</a>] [<a href="https://www.youtube.com/watch?v=kAodFw6jvvo">Video</a>] [<a href="https://yilunzhou.github.io/feature-attribution-evaluation/">Website</a>] [<a href="https://news.mit.edu/2022/test-machine-learning-models-work-0118">MIT News</a>]
+          </li>
 
-          <div class='paper-card workshop'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/wikihow.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Learning Household Task Knowledge from WikiHow Descriptions<br>
-                <b>Yilun Zhou</b>, Julie Shah, Steven Schockaert<br>
-                <i>International Joint Conference on Artificial Intelligence (IJCAI) Workshop on Semantic Deep Learning</i>, 2019<br>
-                [<a href="https://arxiv.org/pdf/1909.06414.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/wikihow-embedding">Code</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Long-Term Resource Allocation Fairness in Average Markov Decision Process (AMDP) Environment</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Ganesh Ghalme<sup>*</sup>, Vineet Nair<sup>*</sup>, Vishakha Patil<sup>*</sup>, <strong>Yilun Zhou</strong><sup>*</sup>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>International Conference on Autonomous Agents and Multi-Agent Systems (AAMAS)</i>, 2022
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2102.07120.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/fair-average-mdp">Code</a>] [<a href="https://yilunzhou.github.io/fair-average-mdp/">Website</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/conceptnet.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Predicting ConceptNet Path Quality Using Crowdsourced Assessments of Naturalness<br>
-                <b>Yilun Zhou</b>, Steven Schockaert, Julie Shah<br>
-                <i>The Web Conference (WWW)</i>, 2019<br>
-                [<a href="https://arxiv.org/pdf/1902.07831.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/path-naturalness-prediction">Code</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Latent Space Alignment Using Adversarially Guided Self-Play</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Mycal Tucker, <strong>Yilun Zhou</strong>, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>International Journal of Human-Computer Interaction (IJHCI)</i>, 2022
+            </span>
+            <br />
+            [<a href="pdf/ijhci2022alignment.pdf">Paper</a>]
+          </li>
 
-          <div class='paper-card journal'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/complex_object.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Representing, Learning, and Controlling Complex Object Interactions<br>
-                <b>Yilun Zhou</b>, Benjamin Burchfiel, George Konidaris<br>
-                <i>Autonomous Robots (AuRo)</i>, 2018<br>
-                <a href='http://www.roboticsproceedings.org/rss12/p39.pdf'>Original version</a> in <i>Robotics: Science and Systems (RSS)</i>, 2016<br>
-                [<a href="pdf/auro2018representing.pdf">Paper</a>] [<a href='https://www.youtube.com/watch?v=TJlxXX1v6S4'>Video</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>RoCUS: Robot Controller Understanding via Sampling</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Serena Booth, Nadia Figueroa, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Conference on Robot Learning (CoRL)</i>, 2021
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2012.13615.pdf">Paper</a>] [<a href="https://yilunzhou.github.io/RoCUS/poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/RoCUS">Code</a>] [<a href="https://www.youtube.com/watch?v=IZigHZ4Gvf4">Video</a>] [<a href="https://yilunzhou.github.io/RoCUS/">Website</a>]
+          </li>
 
-          <div class='paper-card workshop'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/6dof.png">
-              </div>
-              <div class='col col-bg col-9'>
-                6DOF Grasp Planning by Optimizing a Deep Learning Scoring Function<br>
-                <b>Yilun Zhou</b>, Kris Hauser<br>
-                <i>Robotics: Science and Systems (RSS) Workshop on Revisiting Contact - Turning a Problem into a Solution</i>, 2017<br>
-                [<a href="pdf/rssworkshop2017grasp.pdf">Paper</a>] [<a href="pdf/rssworkshop2017grasp_poster.pdf">Poster</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Bayes-TrEx: a Bayesian Sampling Approach to Model Transparency by Example</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Serena Booth<sup>*</sup>, <strong>Yilun Zhou</strong><sup>*</sup>, Ankit Shah, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>AAAI Conference on Artificial Intelligence (AAAI)</i>, 2021
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Preliminary version in AAAI 2020 Workshop on Statistical Relational AI</i>
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2002.10248.pdf">Paper</a>] [<a href="pdf/aaai2021bayestrex_poster.pdf">Poster</a>] [<a href="https://github.com/serenabooth/Bayes-TrEx">Code</a>] [<a href="https://news.mit.edu/2021/more-transparency-understanding-machine-behaviors-bayes-trex-0322">MIT News</a>]
+          </li>
 
-          <div class='paper-card conference'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/side-channel.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Incorporating Side-Channel Information into Convolutional Neural Networks for Robotic Tasks<br>
-                <b>Yilun Zhou</b>, Kris Hauser<br>
-                <i>IEEE International Conference on Robotics and Automation (ICRA)</i>, 2017<br>
-                [<a href="pdf/icra2017incorporating.pdf">Paper</a>] [<a href='code/icra2017.zip'>Code</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Towards Understanding the Behaviors of Optimal Deep Active Learning Algorithms</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Adithya Renduchintala, Xian Li, Sida Wang, Yashar Mehdad, Asish Ghoshal
+            </span>
+            <br />
+            <span class='conference'>
+              <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2021
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2101.00977.pdf">Paper</a>] [<a href="pdf/aistats2021optimal_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/optimal-active-learning">Code</a>] [<a href="https://www.youtube.com/watch?v=McBC7H3BJFM">Video</a>]
+          </li>
 
-          <div class='paper-card journal'>
-            <div class='row'>
-              <div class='col col3'>
-                <img src="imgs/paper_thumbnails/ao-rrt.png">
-              </div>
-              <div class='col col-bg col-9'>
-                Asymptotically Optimal Planning by Feasible Kinodynamic Planning in a State-Cost Space<br>
-                Kris Hauser, <b>Yilun Zhou</b><br>
-                <i>IEEE Transactions on Robotics (TRO)</i>, 2016<br>
-                [<a href="https://arxiv.org/pdf/1505.04098.pdf">Paper</a>] [<a href='https://github.com/krishauser/pyOptimalMotionPlanning'>Code</a>] [<a href='http://motion.cs.illinois.edu/dynamics/statecost.html'>Website</a>]
-              </div>
-            </div>
-          </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Learning Household Task Knowledge from WikiHow Descriptions</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Julie Shah, Steven Schockaert
+            </span>
+            <br />
+            <span class='conference'>
+              <i>International Joint Conference on Artificial Intelligence (IJCAI) Workshop on Semantic Deep Learning</i>, 2019
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/1909.06414.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/wikihow-embedding">Code</a>]
+          </li>
 
-        </div>
-      </div>
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Predicting ConceptNet Path Quality Using Crowdsourced Assessments of Naturalness</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Steven Schockaert, Julie Shah
+            </span>
+            <br />
+            <span class='conference'>
+              <i>The Web Conference (WWW)</i>, 2019
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/1902.07831.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/path-naturalness-prediction">Code</a>]
+          </li>
 
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Representing, Learning, and Controlling Complex Object Interactions</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Benjamin Burchfiel, George Konidaris
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Autonomous Robots (AuRo)</i>, 2018
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Original version in Robotics: Science and Systems (RSS)</i>, 2016
+            </span>
+            <br />
+            [<a href="pdf/auro2018representing.pdf">Paper</a>] [<a href="https://www.youtube.com/watch?v=TJlxXX1v6S4">Video</a>]
+          </li>
+
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>6DOF Grasp Planning by Optimizing a Deep Learning Scoring Function</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Kris Hauser
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Robotics: Science and Systems (RSS) Workshop on Revisiting Contact - Turning a Problem into a Solution</i>, 2017
+            </span>
+            <br />
+            [<a href="pdf/rssworkshop2017grasp.pdf">Paper</a>] [<a href="pdf/rssworkshop2017grasp_poster.pdf">Poster</a>]
+          </li>
+
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Incorporating Side-Channel Information into Convolutional Neural Networks for Robotic Tasks</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Kris Hauser
+            </span>
+            <br />
+            <span class='conference'>
+              <i>IEEE International Conference on Robotics and Automation (ICRA)</i>, 2017
+            </span>
+            <br />
+            [<a href="pdf/icra2017incorporating.pdf">Paper</a>] [<a href="code/icra2017.zip">Code</a>]
+          </li>
+
+          <li style="margin-bottom: 10px;">
+            <span class='title'>
+              <strong>Asymptotically Optimal Planning by Feasible Kinodynamic Planning in a State-Cost Space</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Kris Hauser, <strong>Yilun Zhou</strong>
+            </span>
+            <br />
+            <span class='conference'>
+              <i>IEEE Transactions on Robotics (TRO)</i>, 2016
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/1505.04098.pdf">Paper</a>] [<a href="https://github.com/krishauser/pyOptimalMotionPlanning">Code</a>] [<a href="http://motion.cs.illinois.edu/dynamics/statecost.html">Website</a>]
+          </li>
+        </ul>
+      </section>
 
     </div>
-    <script type="text/javascript">$(".highlight > div.row > div.col-bg").prepend(
-      '<div class="ribbon"><div class="ribbon_inner"><span>&starf;</span></div></div>'
-    );</script>
+    <script src="/assets/js/scale.fix.js"></script>
+    <script>
+      function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      }
 
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // If no saved preference, check system preference
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+
+      // Function to check if screen is small (header and section in same column)
+      function isSmallScreen() {
+        return window.innerWidth <= 1200; // Breakpoint from styles.css where layout changes to single column
+      }
+
+      // Function to toggle showing publications by category
+      function toggleCategory(category, name) {
+        const publications = document.querySelectorAll('#publications li');
+        const links = document.querySelectorAll('ul li a[onclick^="toggleCategory"]');
+        const currentLink = event.target;
+        const showHighlightedLink = document.querySelector('#showHighlighted a');
+        const isShowingHighlighted = showHighlightedLink.textContent === 'Show All';
+        
+        // Toggle visibility based on current state
+        const isActive = currentLink.textContent === 'Show Only';
+        
+        // Reset all other category toggles to "Show Only"
+        links.forEach(link => {
+          if (link !== currentLink) {
+            link.textContent = 'Show Only';
+          }
+        });
+        
+        // First hide all publications
+        publications.forEach(pub => {
+          pub.style.visibility = 'hidden';
+          pub.style.opacity = '0';
+          pub.style.height = '0';
+          pub.style.margin = '0';
+          pub.style.padding = '0';
+        });
+        
+        // Then show the ones in the selected category
+        if (isActive) {
+          publications.forEach(pub => {
+            if (pub.classList.contains(category)) {
+              // If showing highlighted, only show highlighted papers in the category
+              if (isShowingHighlighted) {
+                if (pub.classList.contains('highlighted')) {
+                  pub.style.visibility = 'visible';
+                  pub.style.opacity = '1';
+                  pub.style.height = 'auto';
+                  pub.style.margin = '0 0 10px 0';
+                  pub.style.padding = '5px';
+                }
+              } else {
+                // Show all papers in the category
+                pub.style.visibility = 'visible';
+                pub.style.opacity = '1';
+                pub.style.height = 'auto';
+                pub.style.margin = '0 0 10px 0';
+                pub.style.padding = '5px';
+              }
+            }
+          });
+          currentLink.textContent = 'Reset';
+        } else {
+          // Show all publications if category is not active
+          publications.forEach(pub => {
+            if (isShowingHighlighted) {
+              // If showing highlighted, only show highlighted papers
+              if (pub.classList.contains('highlighted')) {
+                pub.style.visibility = 'visible';
+                pub.style.opacity = '1';
+                pub.style.height = 'auto';
+                pub.style.margin = '0 0 10px 0';
+                pub.style.padding = '5px';
+              } else {
+                pub.style.visibility = 'hidden';
+                pub.style.opacity = '0';
+                pub.style.height = '0';
+                pub.style.margin = '0';
+                pub.style.padding = '0';
+              }
+            } else {
+              // Show all papers
+              pub.style.visibility = 'visible';
+              pub.style.opacity = '1';
+              pub.style.height = 'auto';
+              pub.style.margin = '0 0 10px 0';
+              pub.style.padding = '5px';
+            }
+          });
+          currentLink.textContent = 'Show Only';
+        }
+      }
+
+      // Function to toggle showing only highlighted publications
+      function toggleHighlighted() {
+        const publications = document.querySelectorAll('#publications li');
+        const links = document.querySelectorAll('ul li a');
+        const currentLink = event.target;
+        
+        // Check if any category is active
+        let activeCategory = null;
+        links.forEach(link => {
+          if (link.textContent === 'Reset') {
+            activeCategory = link.getAttribute('onclick').match(/'([^']+)'/)[1];
+          }
+        });
+        
+        // Toggle highlighted link text
+        const isShowingAll = currentLink.textContent === 'Show Highlighted';
+        currentLink.textContent = isShowingAll ? 'Show All' : 'Show Highlighted';
+        
+        // First hide all publications
+        publications.forEach(pub => {
+          pub.style.visibility = 'hidden';
+          pub.style.opacity = '0';
+          pub.style.height = '0';
+          pub.style.margin = '0';
+          pub.style.padding = '0';
+        });
+        
+        // Show/hide publications based on highlighted status and active category
+        publications.forEach(pub => {
+          if (isShowingAll) {
+            // When showing only highlighted
+            if (activeCategory) {
+              // If a category is active, show only highlighted papers in that category
+              if (pub.classList.contains('highlighted') && pub.classList.contains(activeCategory)) {
+                pub.style.visibility = 'visible';
+                pub.style.opacity = '1';
+                pub.style.height = 'auto';
+                pub.style.margin = '0 0 10px 0';
+                pub.style.padding = '5px';
+              }
+            } else {
+              // If no category is active, show all highlighted papers
+              if (pub.classList.contains('highlighted')) {
+                pub.style.visibility = 'visible';
+                pub.style.opacity = '1';
+                pub.style.height = 'auto';
+                pub.style.margin = '0 0 10px 0';
+                pub.style.padding = '5px';
+              }
+            }
+          } else {
+            // When showing all
+            if (activeCategory) {
+              // If a category is active, show all papers in that category
+              if (pub.classList.contains(activeCategory)) {
+                pub.style.visibility = 'visible';
+                pub.style.opacity = '1';
+                pub.style.height = 'auto';
+                pub.style.margin = '0 0 10px 0';
+                pub.style.padding = '5px';
+              }
+            } else {
+              // If no category is active, show all papers
+              pub.style.visibility = 'visible';
+              pub.style.opacity = '1';
+              pub.style.height = 'auto';
+              pub.style.margin = '0 0 10px 0';
+              pub.style.padding = '5px';
+            }
+          }
+        });
+      }
+
+      // Function to handle screen size changes
+      function handleScreenSize() {
+        if (isSmallScreen()) {
+          // If on small screen, show only highlighted
+          const showHighlightedLink = document.querySelector('#showHighlighted a');
+          if (showHighlightedLink.textContent === 'Show Highlighted') {
+            toggleHighlighted();
+          }
+        } else {
+          // If on large screen, show all
+          const showHighlightedLink = document.querySelector('#showHighlighted a');
+          if (showHighlightedLink.textContent === 'Show All') {
+            toggleHighlighted();
+          }
+        }
+
+        // Set initial padding for all visible publications
+        const publications = document.querySelectorAll('#publications li');
+        publications.forEach(pub => {
+          if (pub.style.visibility !== 'hidden') {
+            pub.style.padding = '5px';
+          }
+        });
+      }
+
+      // Initial check on page load
+      window.addEventListener('load', handleScreenSize);
+    </script>
   </body>
 </html>
+
