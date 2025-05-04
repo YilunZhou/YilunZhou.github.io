@@ -92,7 +92,7 @@
             <li>Trustworthy and societal implications for LLMs. [<a href="#" onclick="toggleCategory('trustworthiness', 'Trustworthiness'); return false;">Show Only</a>]</li>
           </ul>
 
-        <h2 style="margin-top: 20px;">Publications <span id="showHighlighted" style="font-size: 14px; font-weight: normal;">[<a href="#" onclick="toggleHighlighted(); return false;">Show Highlighted</a>]</span></h2>
+        <h2 style="margin-top: 20px;">Publications <span id="showHighlighted" style="font-size: 14px; font-weight: normal;">[<a href="#" onclick="toggleHighlighted(event); return false;">Show Highlighted</a>]</span></h2>
         <p><sup>*</sup> Equal Contribution</p>
 
         <ul id="publications">
@@ -686,10 +686,10 @@
       }
 
       // Function to toggle showing only highlighted publications
-      function toggleHighlighted() {
+      function toggleHighlighted(event) {
         const publications = document.querySelectorAll('#publications li');
         const links = document.querySelectorAll('ul li a');
-        const currentLink = event.target;
+        const currentLink = event ? event.target : document.querySelector('#showHighlighted a');
         
         // Check if any category is active
         let activeCategory = null;
@@ -758,6 +758,14 @@
         });
       }
 
+      // Set initial padding for all visible publications
+      const publications = document.querySelectorAll('#publications li');
+      publications.forEach(pub => {
+        if (pub.style.visibility !== 'hidden') {
+          pub.style.padding = '5px';
+        }
+      });
+      
       // Function to handle screen size changes
       function handleScreenSize() {
         if (isSmallScreen()) {
@@ -774,18 +782,12 @@
           }
         }
 
-        // Set initial padding for all visible publications
-        const publications = document.querySelectorAll('#publications li');
-        publications.forEach(pub => {
-          if (pub.style.visibility !== 'hidden') {
-            pub.style.padding = '5px';
-          }
-        });
       }
 
       // Initial check on page load
       window.addEventListener('load', handleScreenSize);
     </script>
+
   </body>
 </html>
 
