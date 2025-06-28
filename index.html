@@ -66,6 +66,37 @@
         border-radius: 4px;
         transition: background-color 0.3s;
       }
+
+      .bibtex-entry {
+        display: none;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 5px;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        white-space: pre;
+        overflow-x: auto;
+      }
+
+      [data-theme="dark"] .bibtex-entry {
+        background-color: #3a3a3a;
+        border-color: #555;
+        color: #e0e0e0;
+      }
+
+      .bibtex-button {
+        cursor: pointer;
+        color: var(--link-color);
+        text-decoration: none;
+      }
+
+      .bibtex-button:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
 
@@ -97,6 +128,50 @@
         <p><sup>*</sup> Equal Contribution</p>
 
         <ul id="publications">
+          <li style="margin-bottom: 10px;" class="highlighted trustworthiness">
+            <span class='title'>
+              <strong>Shared Imagination: LLMs Hallucinate Alike</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              <strong>Yilun Zhou</strong>, Caiming Xiong, Silvio Savarese, Chien-Sheng Wu
+            </span>
+            <br />
+            <span class='conference'>
+              <i>Transactions on Machine Learning Research (TMLR)</i>, 2025
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2407.16604.pdf">Paper</a>] [<a href="shared-imagination/">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('shared-imagination', event); return false;">BibTeX</a>]
+            <div id="bibtex-shared-imagination" class="bibtex-entry">@article{zhou2025shared,
+  title={Shared Imagination: LLMs Hallucinate Alike},
+  author={Zhou, Yilun and Xiong, Caiming and Savarese, Silvio and Wu, Chien-Sheng},
+  journal={Transactions on Machine Learning Research},
+  year={2025}
+}</div>
+          </li>
+
+          <li style="margin-bottom: 10px;" class="reasoning">
+            <span class='title'>
+              <strong>J4R: Learning to Judge with Equivalent Initial State Group Relative Policy Optimization</strong>
+            </span>
+            <br />
+            <span class='authors'>
+              Austin Xu, <strong>Yilun Zhou</strong>, Xuan-Phi Nguyen, Caiming Xiong, Shafiq Joty
+            </span>
+            <br />
+            <span class='conference'>
+              <i>arXiv preprint: 2505.13346</i>, 2025
+            </span>
+            <br />
+            [<a href="https://arxiv.org/pdf/2505.13346">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('j4r', event); return false;">BibTeX</a>]
+            <div id="bibtex-j4r" class="bibtex-entry">@article{xu2025j4r,
+  title={J4R: Learning to Judge with Equivalent Initial State Group Relative Policy Optimization},
+  author={Xu, Austin and Zhou, Yilun and Nguyen, Xuan-Phi and Xiong, Caiming and Joty, Shafiq},
+  journal={arXiv preprint arXiv:2505.13346},
+  year={2025}
+}</div>
+          </li>
+
           <li style="margin-bottom: 10px;" class="highlighted reasoning">
             <span class='title'>
               <strong>Evaluating Judges as Evaluators: The JETTS Benchmark of LLM-as-Judges as Test-Time Scaling Evaluators</strong>
@@ -110,12 +185,18 @@
               <i>International Conference on Machine Learning (ICML)</i>, 2025
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2504.15253.pdf">Paper</a>] [<a href="https://github.com/salesforceairesearch/jetts-benchmark">Code</a>]
+            [<a href="https://arxiv.org/pdf/2504.15253.pdf">Paper</a>] [<a href="https://github.com/salesforceairesearch/jetts-benchmark">Code</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('jetts', event); return false;">BibTeX</a>]
+            <div id="bibtex-jetts" class="bibtex-entry">@inproceedings{zhou2025jetts,
+  title={Evaluating Judges as Evaluators: The JETTS Benchmark of LLM-as-Judges as Test-Time Scaling Evaluators},
+  author={Zhou, Yilun and Xu, Austin and Wang, Peifeng and Xiong, Caiming and Joty, Shafiq},
+  booktitle={International Conference on Machine Learning},
+  year={2025}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="trustworthiness">
             <span class='title'>
-              <strong>Search Engines in the AI Era: A Qualitative Understanding to the False Promise of Factual and Verifiable Source-Cited Responses in LLM-based Search</strong>
+              <strong>Search Engines in the AI Era: A Qualitative Understanding to the False Promise of Factual and Verifiable Source-Cited Responses in LLM-Based Search</strong>
             </span>
             <br />
             <span class='authors'>
@@ -126,7 +207,13 @@
               <i>ACM Conference on Fairness, Accountability, and Transparency (FAccT)</i>, 2025
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2410.22349">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2410.22349">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('search-engines', event); return false;">BibTeX</a>]
+            <div id="bibtex-search-engines" class="bibtex-entry">@inproceedings{venkit2025search,
+  title={Search Engines in the AI Era: A Qualitative Understanding to the False Promise of Factual and Verifiable Source-Cited Responses in LLM-Based Search},
+  author={Venkit, Pranav Narayanan and Laban, Philippe and Zhou, Yilun and Mao, Yixin and Wu, Chien-Sheng},
+  booktitle={ACM Conference on Fairness, Accountability, and Transparency},
+  year={2025}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="trustworthiness">
@@ -142,7 +229,13 @@
               <i>International Conference on Learning Representations (ICLR)</i>, 2025
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2503.06550">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2503.06550">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('bingoguard', event); return false;">BibTeX</a>]
+            <div id="bibtex-bingoguard" class="bibtex-entry">@inproceedings{yin2025bingoguard,
+  title={BingoGuard: LLM Content Moderation Tools with Risk Levels},
+  author={Yin, Fan and Laban, Philippe and Peng, Xiangyu and Zhou, Yilun and Mao, Yixin and Vats, Vaibhav and Ross, Linnea and Agarwal, Divyansh and Xiong, Caiming and Wu, Chien-Sheng},
+  booktitle={International Conference on Learning Representations},
+  year={2025}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="reasoning">
@@ -158,23 +251,13 @@
               <i>arXiv preprint: 2409.14664</i>, 2024
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2409.14664">Paper</a>]
-          </li>
-
-          <li style="margin-bottom: 10px;" class="highlighted trustworthiness">
-            <span class='title'>
-              <strong>Shared Imagination: LLMs Hallucinate Alike</strong>
-            </span>
-            <br />
-            <span class='authors'>
-              <strong>Yilun Zhou</strong>, Caiming Xiong, Silvio Savarese, Chien-Sheng Wu
-            </span>
-            <br />
-            <span class='conference'>
-              <i>arXiv preprint: 2407.16604</i>, 2024
-            </span>
-            <br />
-            [<a href="https://arxiv.org/pdf/2407.16604.pdf">Paper</a>] [<a href="shared-imagination/">Website</a>]
+            [<a href="https://arxiv.org/pdf/2409.14664">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('djpo', event); return false;">BibTeX</a>]
+            <div id="bibtex-djpo" class="bibtex-entry">@article{wang2024direct,
+  title={Direct Judgement Preference Optimization},
+  author={Wang, Peifeng and Xu, Austin and Zhou, Yilun and Xiong, Caiming and Joty, Shafiq},
+  journal={arXiv preprint arXiv:2409.14664},
+  year={2024}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -190,7 +273,13 @@
               <i>arXiv preprint: 2406.10290</i>, 2024
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2406.10290">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2406.10290">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('mobileaibench', event); return false;">BibTeX</a>]
+            <div id="bibtex-mobileaibench" class="bibtex-entry">@article{murthy2024mobileaibench,
+  title={MobileAIBench: Benchmarking LLMs and LMMs for On-Device Use Cases},
+  author={Murthy, Rithesh and Yang, Liangwei and Tan, Juntao and Awalgaonkar, Tulika Manoj and Zhou, Yilun and Heinecke, Shelby and Desai, Sachin and Wu, Jason and Xu, Ran and Tan, Sarah and Zhang, Jianguo and Liu, Zhiwei and Kokane, Shirley and Liu, Zuxin and Zhu, Ming and Wang, Huan and Xiong, Caiming and Savarese, Silvio},
+  journal={arXiv preprint arXiv:2406.10290},
+  year={2024}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted interpretability">
@@ -206,7 +295,13 @@
               <i>arXiv preprint: 2407.02646</i>, 2024
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2407.02646.pdf">Paper</a>] [<a href="https://github.com/Dakingrai/awesome-mechanistic-interpretability-lm-papers">Website</a>]
+            [<a href="https://arxiv.org/pdf/2407.02646.pdf">Paper</a>] [<a href="https://github.com/Dakingrai/awesome-mechanistic-interpretability-lm-papers">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('mech-interp', event); return false;">BibTeX</a>]
+            <div id="bibtex-mech-interp" class="bibtex-entry">@article{rai2024practical,
+  title={A Practical Review of Mechanistic Interpretability for Transformer-Based Language Models},
+  author={Rai, Daking and Zhou, Yilun and Feng, Shi and Saparov, Abulhair and Yao, Ziyu},
+  journal={arXiv preprint arXiv:2407.02646},
+  year={2024}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted reasoning">
@@ -226,7 +321,13 @@
               <i>Preliminary version in NeurIPS 2023 Workshop on Mathematical Reasoning and AI (MATH-AI)</i>
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2401.06961.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/champ-dataset">Code</a>] [<a href="https://yujunmao1.github.io/CHAMP/">Website</a>]
+            [<a href="https://arxiv.org/pdf/2401.06961.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/champ-dataset">Code</a>] [<a href="https://yujunmao1.github.io/CHAMP/">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('champ', event); return false;">BibTeX</a>]
+            <div id="bibtex-champ" class="bibtex-entry">@inproceedings{mao2024champ,
+  title={CHAMP: A Competition-Level Dataset for Fine-Grained Analyses of LLMs' Mathematical Reasoning Capabilities},
+  author={Mao, Yujun and Kim, Yoon and Zhou, Yilun},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2024},
+  year={2024}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="interpretability">
@@ -242,7 +343,13 @@
               <i>NeurIPS Workshop on Attributing Model Behavior at Scale (ATTRIB)</i>, 2023
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2312.06032.pdf">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2312.06032.pdf">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('utility-explanations', event); return false;">BibTeX</a>]
+            <div id="bibtex-utility-explanations" class="bibtex-entry">@inproceedings{im2023evaluating,
+  title={Evaluating the Utility of Model Explanations for Model Development},
+  author={Im, Shawn and Andreas, Jacob and Zhou, Yilun},
+  booktitle={NeurIPS Workshop on Attributing Model Behavior at Scale},
+  year={2023}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted interpretability">
@@ -258,7 +365,13 @@
               <i>arXiv preprint: 2310.11207</i>, 2023
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2310.11207.pdf">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2310.11207.pdf">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('llm-self-explain', event); return false;">BibTeX</a>]
+            <div id="bibtex-llm-self-explain" class="bibtex-entry">@article{huang2023can,
+  title={Can Large Language Models Explain Themselves? A Study of LLM-Generated Self-Explanations},
+  author={Huang, Shiyuan and Mamidanna, Siddarth and Jangam, Shreedhar and Zhou, Yilun and Gilpin, Leilani H.},
+  journal={arXiv preprint arXiv:2310.11207},
+  year={2023}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted trustworthiness interpretability">
@@ -274,7 +387,13 @@
               <i>AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society (AIES)</i>, 2023
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2303.11111.pdf">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2303.11111.pdf">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('counterfactual-ipf', event); return false;">BibTeX</a>]
+            <div id="bibtex-counterfactual-ipf" class="bibtex-entry">@inproceedings{zhou2023iterative,
+  title={Iterative Partial Fulfillment of Counterfactual Explanations: Benefits and Risks},
+  author={Zhou, Yilun},
+  booktitle={AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society},
+  year={2023}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -290,7 +409,13 @@
               <i>Annual Meeting of the Association for Computational Linguistics (ACL)</i>, 2023
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2305.17378.pdf">Paper</a>] [<a href="https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques">Code</a>]
+            [<a href="https://arxiv.org/pdf/2305.17378.pdf">Paper</a>] [<a href="https://github.com/Dakingrai/ood-generalization-semantic-boundary-techniques">Code</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('sql-parsing', event); return false;">BibTeX</a>]
+            <div id="bibtex-sql-parsing" class="bibtex-entry">@inproceedings{rai2023improving,
+  title={Improving Generalization in Language Model-Based Text-to-SQL Semantic Parsing: Two Simple Semantic Boundary-Based Techniques},
+  author={Rai, Daking and Wang, Bailin and Zhou, Yilun and Yao, Ziyu},
+  booktitle={Annual Meeting of the Association for Computational Linguistics},
+  year={2023}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="interpretability">
@@ -306,7 +431,13 @@
               <i>MIT Ph.D. Thesis</i>, 2023
             </span>
             <br />
-            [<a href="pdf/thesis.pdf">Thesis</a>]
+            [<a href="pdf/thesis.pdf">Thesis</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('thesis', event); return false;">BibTeX</a>]
+            <div id="bibtex-thesis" class="bibtex-entry">@phdthesis{zhou2023techniques,
+  title={Techniques for Interpretability and Transparency of Black-Box Models},
+  author={Zhou, Yilun},
+  year={2023},
+  school={Massachusetts Institute of Technology}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted interpretability">
@@ -322,7 +453,13 @@
               <i>Conference of the European Chapter of the Association for Computational Linguistics (EACL) Findings</i>, 2023
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2205.08696.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/solvability-explainer">Code</a>] [<a href="solvability/">Website</a>]
+            [<a href="https://arxiv.org/pdf/2205.08696.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/solvability-explainer">Code</a>] [<a href="solvability/">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('solvability', event); return false;">BibTeX</a>]
+            <div id="bibtex-solvability" class="bibtex-entry">@inproceedings{zhou2023solvability,
+  title={The Solvability of Interpretability Evaluation Metrics},
+  author={Zhou, Yilun and Shah, Julie},
+  booktitle={Findings of the Association for Computational Linguistics: EACL 2023},
+  year={2023}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="interpretability">
@@ -338,7 +475,13 @@
               <i>AAAI Conference on Artificial Intelligence: Student Abstract and Poster Program</i>, 2023
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2301.13820.pdf">Paper</a>]
+            [<a href="https://arxiv.org/pdf/2301.13820.pdf">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('llm-semantic-parser', event); return false;">BibTeX</a>]
+            <div id="bibtex-llm-semantic-parser" class="bibtex-entry">@inproceedings{rai2023explaining,
+  title={Explaining Large Language Model-Based Neural Semantic Parsers},
+  author={Rai, Daking and Zhou, Yilun and Wang, Bailin and Yao, Ziyu},
+  booktitle={AAAI Conference on Artificial Intelligence: Student Abstract and Poster Program},
+  year={2023}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted interpretability">
@@ -354,7 +497,13 @@
               <i>Conference of the North American Chapter of the Association for Computational Linguistics - Human Language Technologies (NAACL-HLT)</i>, 2022
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2205.00130.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/ExSum">Code</a>] [<a href="https://www.youtube.com/watch?v=jK2CJL7emWs">Video</a>] [<a href="https://yilunzhou.github.io/exsum/">Website</a>] [<a href="https://news.mit.edu/2022/machine-learning-explainability-0505">MIT News</a>]
+            [<a href="https://arxiv.org/pdf/2205.00130.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/ExSum">Code</a>] [<a href="https://www.youtube.com/watch?v=jK2CJL7emWs">Video</a>] [<a href="https://yilunzhou.github.io/exsum/">Website</a>] [<a href="https://news.mit.edu/2022/machine-learning-explainability-0505">MIT News</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('exsum', event); return false;">BibTeX</a>]
+            <div id="bibtex-exsum" class="bibtex-entry">@inproceedings{zhou2022exsum,
+  title={ExSum: From Local Explanations to Model Understanding},
+  author={Zhou, Yilun and Ribeiro, Marco Tulio and Shah, Julie},
+  booktitle={Conference of the North American Chapter of the Association for Computational Linguistics - Human Language Technologies},
+  year={2022}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="interpretability">
@@ -370,7 +519,13 @@
               <i>NAACL Workshop on Trustworthy Natural Language Processing (TrustNLP)</i>, 2022
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2110.07550.pdf">Paper</a>] [<a href="pdf/naaclworkshop2022rationale_poster.pdf">Poster</a>] [<a href="https://github.com/yimingz89/Neural-Rationale-Analysis">Code</a>]
+            [<a href="https://arxiv.org/pdf/2110.07550.pdf">Paper</a>] [<a href="pdf/naaclworkshop2022rationale_poster.pdf">Poster</a>] [<a href="https://github.com/yimingz89/Neural-Rationale-Analysis">Code</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('irrationality', event); return false;">BibTeX</a>]
+            <div id="bibtex-irrationality" class="bibtex-entry">@inproceedings{zheng2022irrationality,
+  title={The Irrationality of Neural Rationale Models},
+  author={Zheng, Yiming and Booth, Serena and Shah, Julie and Zhou, Yilun},
+  booktitle={NAACL Workshop on Trustworthy Natural Language Processing},
+  year={2022}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;" class="highlighted interpretability">
@@ -390,7 +545,13 @@
               <i>Preliminary version in NeurIPS 2021 Workshop on Explainable AI Approaches for Debugging and Diagnosis</i>
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2104.14403.pdf">Paper</a>] [<a href="pdf/aaai2022feature_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/feature-attribution-evaluation">Code</a>] [<a href="https://www.youtube.com/watch?v=kAodFw6jvvo">Video</a>] [<a href="https://yilunzhou.github.io/feature-attribution-evaluation/">Website</a>] [<a href="https://news.mit.edu/2022/test-machine-learning-models-work-0118">MIT News</a>]
+            [<a href="https://arxiv.org/pdf/2104.14403.pdf">Paper</a>] [<a href="pdf/aaai2022feature_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/feature-attribution-evaluation">Code</a>] [<a href="https://www.youtube.com/watch?v=kAodFw6jvvo">Video</a>] [<a href="https://yilunzhou.github.io/feature-attribution-evaluation/">Website</a>] [<a href="https://news.mit.edu/2022/test-machine-learning-models-work-0118">MIT News</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('feature-attribution', event); return false;">BibTeX</a>]
+            <div id="bibtex-feature-attribution" class="bibtex-entry">@inproceedings{zhou2022feature,
+  title={Do Feature Attribution Methods Correctly Attribute Features?},
+  author={Zhou, Yilun and Booth, Serena and Ribeiro, Marco Tulio and Shah, Julie},
+  booktitle={AAAI Conference on Artificial Intelligence},
+  year={2022}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -406,7 +567,13 @@
               <i>International Conference on Autonomous Agents and Multi-Agent Systems (AAMAS)</i>, 2022
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2102.07120.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/fair-average-mdp">Code</a>] [<a href="https://yilunzhou.github.io/fair-average-mdp/">Website</a>]
+            [<a href="https://arxiv.org/pdf/2102.07120.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/fair-average-mdp">Code</a>] [<a href="https://yilunzhou.github.io/fair-average-mdp/">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('fair-mdp', event); return false;">BibTeX</a>]
+            <div id="bibtex-fair-mdp" class="bibtex-entry">@inproceedings{ghalme2022long,
+  title={Long-Term Resource Allocation Fairness in Average Markov Decision Process (AMDP) Environment},
+  author={Ghalme, Ganesh and Nair, Vineet and Patil, Vishakha and Zhou, Yilun},
+  booktitle={International Conference on Autonomous Agents and Multi-Agent Systems},
+  year={2022}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -422,7 +589,13 @@
               <i>International Journal of Human-Computer Interaction (IJHCI)</i>, 2022
             </span>
             <br />
-            [<a href="pdf/ijhci2022alignment.pdf">Paper</a>]
+            [<a href="pdf/ijhci2022alignment.pdf">Paper</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('latent-alignment', event); return false;">BibTeX</a>]
+            <div id="bibtex-latent-alignment" class="bibtex-entry">@article{tucker2022latent,
+  title={Latent Space Alignment Using Adversarially Guided Self-Play},
+  author={Tucker, Mycal and Zhou, Yilun and Shah, Julie},
+  journal={International Journal of Human-Computer Interaction},
+  year={2022}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -438,7 +611,13 @@
               <i>Conference on Robot Learning (CoRL)</i>, 2021
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2012.13615.pdf">Paper</a>] [<a href="https://yilunzhou.github.io/RoCUS/poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/RoCUS">Code</a>] [<a href="https://www.youtube.com/watch?v=IZigHZ4Gvf4">Video</a>] [<a href="https://yilunzhou.github.io/RoCUS/">Website</a>]
+            [<a href="https://arxiv.org/pdf/2012.13615.pdf">Paper</a>] [<a href="https://yilunzhou.github.io/RoCUS/poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/RoCUS">Code</a>] [<a href="https://www.youtube.com/watch?v=IZigHZ4Gvf4">Video</a>] [<a href="https://yilunzhou.github.io/RoCUS/">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('rocus', event); return false;">BibTeX</a>]
+            <div id="bibtex-rocus" class="bibtex-entry">@inproceedings{zhou2021rocus,
+  title={RoCUS: Robot Controller Understanding via Sampling},
+  author={Zhou, Yilun and Booth, Serena and Figueroa, Nadia and Shah, Julie},
+  booktitle={Conference on Robot Learning},
+  year={2021}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -458,7 +637,13 @@
               <i>Preliminary version in AAAI 2020 Workshop on Statistical Relational AI</i>
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2002.10248.pdf">Paper</a>] [<a href="pdf/aaai2021bayestrex_poster.pdf">Poster</a>] [<a href="https://github.com/serenabooth/Bayes-TrEx">Code</a>] [<a href="https://news.mit.edu/2021/more-transparency-understanding-machine-behaviors-bayes-trex-0322">MIT News</a>]
+            [<a href="https://arxiv.org/pdf/2002.10248.pdf">Paper</a>] [<a href="pdf/aaai2021bayestrex_poster.pdf">Poster</a>] [<a href="https://github.com/serenabooth/Bayes-TrEx">Code</a>] [<a href="https://news.mit.edu/2021/more-transparency-understanding-machine-behaviors-bayes-trex-0322">MIT News</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('bayes-trex', event); return false;">BibTeX</a>]
+            <div id="bibtex-bayes-trex" class="bibtex-entry">@inproceedings{booth2021bayes,
+  title={Bayes-TrEx: a Bayesian Sampling Approach to Model Transparency by Example},
+  author={Booth, Serena and Zhou, Yilun and Shah, Ankit and Shah, Julie},
+  booktitle={AAAI Conference on Artificial Intelligence},
+  year={2021}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -474,7 +659,13 @@
               <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2021
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/2101.00977.pdf">Paper</a>] [<a href="pdf/aistats2021optimal_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/optimal-active-learning">Code</a>] [<a href="https://www.youtube.com/watch?v=McBC7H3BJFM">Video</a>]
+            [<a href="https://arxiv.org/pdf/2101.00977.pdf">Paper</a>] [<a href="pdf/aistats2021optimal_poster.pdf">Poster</a>] [<a href="https://github.com/YilunZhou/optimal-active-learning">Code</a>] [<a href="https://www.youtube.com/watch?v=McBC7H3BJFM">Video</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('optimal-active', event); return false;">BibTeX</a>]
+            <div id="bibtex-optimal-active" class="bibtex-entry">@inproceedings{zhou2021optimal,
+  title={Towards Understanding the Behaviors of Optimal Deep Active Learning Algorithms},
+  author={Zhou, Yilun and Renduchintala, Adithya and Li, Xian and Wang, Sida and Mehdad, Yashar and Ghoshal, Asish},
+  booktitle={International Conference on Artificial Intelligence and Statistics},
+  year={2021}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -490,7 +681,13 @@
               <i>International Joint Conference on Artificial Intelligence (IJCAI) Workshop on Semantic Deep Learning</i>, 2019
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/1909.06414.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/wikihow-embedding">Code</a>]
+            [<a href="https://arxiv.org/pdf/1909.06414.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/wikihow-embedding">Code</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('wikihow', event); return false;">BibTeX</a>]
+            <div id="bibtex-wikihow" class="bibtex-entry">@inproceedings{zhou2019learning,
+  title={Learning Household Task Knowledge from WikiHow Descriptions},
+  author={Zhou, Yilun and Shah, Julie and Schockaert, Steven},
+  booktitle={International Joint Conference on Artificial Intelligence Workshop on Semantic Deep Learning},
+  year={2019}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -506,7 +703,13 @@
               <i>The Web Conference (WWW)</i>, 2019
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/1902.07831.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/path-naturalness-prediction">Code</a>]
+            [<a href="https://arxiv.org/pdf/1902.07831.pdf">Paper</a>] [<a href="https://github.com/YilunZhou/path-naturalness-prediction">Code</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('conceptnet', event); return false;">BibTeX</a>]
+            <div id="bibtex-conceptnet" class="bibtex-entry">@inproceedings{zhou2019predicting,
+  title={Predicting ConceptNet Path Quality Using Crowdsourced Assessments of Naturalness},
+  author={Zhou, Yilun and Schockaert, Steven and Shah, Julie},
+  booktitle={The Web Conference},
+  year={2019}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -526,7 +729,13 @@
               <i>Original version in Robotics: Science and Systems (RSS)</i>, 2016
             </span>
             <br />
-            [<a href="pdf/auro2018representing.pdf">Paper</a>] [<a href="https://www.youtube.com/watch?v=TJlxXX1v6S4">Video</a>]
+            [<a href="pdf/auro2018representing.pdf">Paper</a>] [<a href="https://www.youtube.com/watch?v=TJlxXX1v6S4">Video</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('complex-object', event); return false;">BibTeX</a>]
+            <div id="bibtex-complex-object" class="bibtex-entry">@article{zhou2018representing,
+  title={Representing, Learning, and Controlling Complex Object Interactions},
+  author={Zhou, Yilun and Burchfiel, Benjamin and Konidaris, George},
+  journal={Autonomous Robots},
+  year={2018}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -542,7 +751,13 @@
               <i>Robotics: Science and Systems (RSS) Workshop on Revisiting Contact - Turning a Problem into a Solution</i>, 2017
             </span>
             <br />
-            [<a href="pdf/rssworkshop2017grasp.pdf">Paper</a>] [<a href="pdf/rssworkshop2017grasp_poster.pdf">Poster</a>]
+            [<a href="pdf/rssworkshop2017grasp.pdf">Paper</a>] [<a href="pdf/rssworkshop2017grasp_poster.pdf">Poster</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('6dof-grasp', event); return false;">BibTeX</a>]
+            <div id="bibtex-6dof-grasp" class="bibtex-entry">@inproceedings{zhou2017grasp,
+  title={6DOF Grasp Planning by Optimizing a Deep Learning Scoring Function},
+  author={Zhou, Yilun and Hauser, Kris},
+  booktitle={Robotics: Science and Systems Workshop on Revisiting Contact - Turning a Problem into a Solution},
+  year={2017}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -558,7 +773,13 @@
               <i>IEEE International Conference on Robotics and Automation (ICRA)</i>, 2017
             </span>
             <br />
-            [<a href="pdf/icra2017incorporating.pdf">Paper</a>] [<a href="code/icra2017.zip">Code</a>]
+            [<a href="pdf/icra2017incorporating.pdf">Paper</a>] [<a href="code/icra2017.zip">Code</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('side-channel', event); return false;">BibTeX</a>]
+            <div id="bibtex-side-channel" class="bibtex-entry">@inproceedings{zhou2017incorporating,
+  title={Incorporating Side-Channel Information into Convolutional Neural Networks for Robotic Tasks},
+  author={Zhou, Yilun and Hauser, Kris},
+  booktitle={IEEE International Conference on Robotics and Automation},
+  year={2017}
+}</div>
           </li>
 
           <li style="margin-bottom: 10px;">
@@ -574,7 +795,13 @@
               <i>IEEE Transactions on Robotics (TRO)</i>, 2016
             </span>
             <br />
-            [<a href="https://arxiv.org/pdf/1505.04098.pdf">Paper</a>] [<a href="https://github.com/krishauser/pyOptimalMotionPlanning">Code</a>] [<a href="http://motion.cs.illinois.edu/dynamics/statecost.html">Website</a>]
+            [<a href="https://arxiv.org/pdf/1505.04098.pdf">Paper</a>] [<a href="https://github.com/krishauser/pyOptimalMotionPlanning">Code</a>] [<a href="http://motion.cs.illinois.edu/dynamics/statecost.html">Website</a>] [<a href="#" class="bibtex-button" onclick="toggleBibtex('asymptotic-optimal', event); return false;">BibTeX</a>]
+            <div id="bibtex-asymptotic-optimal" class="bibtex-entry">@article{hauser2016asymptotically,
+  title={Asymptotically Optimal Planning by Feasible Kinodynamic Planning in a State-Cost Space},
+  author={Hauser, Kris and Zhou, Yilun},
+  journal={IEEE Transactions on Robotics},
+  year={2016}
+}</div>
           </li>
         </ul>
       </section>
@@ -787,6 +1014,24 @@
 
       // Initial check on page load
       window.addEventListener('load', handleScreenSize);
+
+      // Function to toggle BibTeX entries
+      function toggleBibtex(pubId, event) {
+        if (event) {
+          event.preventDefault();
+        }
+        const bibtexDiv = document.getElementById('bibtex-' + pubId);
+        const button = document.querySelector(`[onclick*="toggleBibtex('${pubId}')"]`);
+        
+        if (bibtexDiv.style.display === 'none' || bibtexDiv.style.display === '') {
+          bibtexDiv.style.display = 'block';
+          button.textContent = 'Hide BibTeX';
+        } else {
+          bibtexDiv.style.display = 'none';
+          button.textContent = 'BibTeX';
+        }
+        return false;
+      }
     </script>
 
   </body>
